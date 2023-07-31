@@ -1,0 +1,38 @@
+[
+  {
+    "reviewId": "review1",
+    "companyId": "company1",
+    "rate": 4,
+    "userId": "user1",
+    "reviewTitle": "Great product",
+    "reviewText": "I loved using their product. Highly recommended.",
+    "date": "2023-07-31T12:34:56Z"
+  },
+  {
+    "reviewId": "review2",
+    "companyId": "company2",
+    "rate": 3,
+    "userId": "user1",
+    "reviewTitle": "Good service",
+    "reviewText": "Their service was decent. Could be improved.",
+    "date": "2023-07-30T10:00:00Z"
+  },
+  {
+    "reviewId": "review3",
+    "companyId": "company1",
+    "rate": 5,
+    "userId": "user2",
+    "reviewTitle": "Amazing product",
+    "reviewText": "The product exceeded my expectations. Absolutely loved it!",
+    "date": "2023-07-29T15:45:00Z"
+  },
+  {
+    "reviewId": "review4",
+    "companyId": "company3",
+    "rate": 2,
+    "userId": "user2",
+    "reviewTitle": "Disappointing experience",
+    "reviewText": "Not satisfied with their service. Needs improvement.",
+    "date": "2023-07-28T09:30:00Z"
+  }
+]
