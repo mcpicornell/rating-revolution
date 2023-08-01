@@ -1,6 +1,6 @@
 import {FC} from "react";
 import StarRating from "./StarRating";
-import { IReview } from "../features/Interfaces";
+import { IReview } from "../features/interfaces";
 
 type ReviewProps = {
     review: IReview, 
