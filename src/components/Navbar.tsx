@@ -24,8 +24,8 @@ const Navbar = () => {
         <LinkList to="/hotels">
           <LiElement>Hotels</LiElement>
         </LinkList>
-        <LinkList to="/login">
-          <LiElement>Login</LiElement>
+        <LinkList to="/profile">
+          <LiElement>Profile</LiElement>
         </LinkList>
       </UlElementsContainer>
     </Nav>

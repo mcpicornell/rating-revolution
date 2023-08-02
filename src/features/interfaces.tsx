@@ -10,7 +10,7 @@ export interface IUser {
 export interface IReview {
     reviewId: string,
     companyId: string,
-    rate: number,
+    rating: number,
     userId: string,
     reviewTitle: string,
     reviewText: string,
@@ -20,7 +20,7 @@ export interface IReview {
 export interface ICompany{
     companyId: string,
     companyName: string,
-    rate: number,
+    rating: number,
     description: string,
     photos: string[],
     reviews:IReview[]

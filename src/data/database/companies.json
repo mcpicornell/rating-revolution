@@ -2,14 +2,14 @@
   {
     "companyId": "company1",
     "companyName": "Awesome Products Co.",
-    "rate": 4.5,
+    "rating": 4.5,
     "description": "We provide high-quality products for our customers.",
     "photos":["https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1623718649591-311775a30c43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"],
     "reviews": [
       {
         "reviewId": "review1",
         "companyId": "company1",
-        "rate": 4,
+        "rating": 4,
         "userId": "user1",
         "reviewTitle": "Great product",
         "reviewText": "I loved using their product. Highly recommended.",
@@ -18,7 +18,7 @@
       {
         "reviewId": "review3",
         "companyId": "company1",
-        "rate": 5,
+        "rating": 5,
         "userId": "user2",
         "reviewTitle": "Amazing product",
         "reviewText": "The product exceeded my expectations. Absolutely loved it!",
@@ -29,14 +29,14 @@
   {
     "companyId": "company2",
     "companyName": "Superb Services Inc.",
-    "rate": 4.8,
+    "rating": 4.8,
     "photos":["https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1623718649591-311775a30c43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"],
     "description": "We offer exceptional services to our clients.",
     "reviews": [
       {
         "reviewId": "review2",
         "companyId": "company2",
-        "rate": 3,
+        "rating": 3,
         "userId": "user1",
         "reviewTitle": "Good service",
         "reviewText": "Their service was decent. Could be improved.",
@@ -47,14 +47,14 @@
   {
     "companyId": "company3",
     "companyName": "Mediocre Solutions Ltd.",
-    "rate": 2.2,
+    "rating": 2.2,
     "description": "We try our best.",
     "photos":["https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1623718649591-311775a30c43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"],
     "reviews": [
       {
         "reviewId": "review4",
         "companyId": "company3",
-        "rate": 2,
+        "rating": 2,
         "userId": "user2",
         "reviewTitle": "Disappointing experience",
         "reviewText": "Not satisfied with their service. Needs improvement.",

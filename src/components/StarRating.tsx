@@ -1,5 +1,6 @@
 import {FC} from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import styled from "styled-components";
 
 type StarRatingProps = {
     rating: number; 
@@ -12,16 +13,24 @@ const StarRating: FC<StarRatingProps> = ({ rating }) => {
 
   const stars = [];
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<FaStar key={i} />);
+    stars.push(<FilledStar key={i} />);
   }
   if (hasHalfStar) {
     stars.push(<FaStarHalfAlt key={fullStars} />);
   }
   while (stars.length < totalStars) {
-    stars.push(<FaRegStar key={stars.length} />);
+    stars.push(<EmptyStar key={stars.length} />);
   }
 
   return <div>{stars}</div>;
 };
 
 export default StarRating;
+
+const FilledStar = styled(FaStar)`
+  color: rgba(47, 128, 237, 1);
+`;
+
+const EmptyStar = styled(FaRegStar)`
+  color: rgba(130, 130, 130, 1);
+`;
