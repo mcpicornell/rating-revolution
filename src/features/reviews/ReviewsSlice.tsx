@@ -12,7 +12,7 @@ interface InitState {
 const initialState: InitState = {
   error: null,
   status: "idle",
-  data: [] as IReview[],
+  data: [],
 };
 
 export const ReviewsSlice = createSlice({

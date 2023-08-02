@@ -1,8 +1,8 @@
 import Review from '../components/Review'
 import { useEffect } from 'react';
-import { getReviewData, getReviewError, getReviewStatus } from '../features/reviews/ReviewsSlice';
+import { getReviewData, getReviewError, getReviewStatus } from '../features/companies/ComapaniesSlice';
 import { useAppSelector, useAppDispatch } from '../app/store';
-import { fetchReviews } from '../features/reviews/fetchReviews';
+import { fetchReviews } from '../features/companies/fetchCompanies';
 const Index = () => {
 
   const reviewData = useAppSelector(getReviewData);
