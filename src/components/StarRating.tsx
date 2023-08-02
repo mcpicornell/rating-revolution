@@ -16,7 +16,7 @@ const StarRating: FC<StarRatingProps> = ({ rating }) => {
     stars.push(<FilledStar key={i} />);
   }
   if (hasHalfStar) {
-    stars.push(<FaStarHalfAlt key={fullStars} />);
+    stars.push(<HalfFilledStar key={fullStars} />);
   }
   while (stars.length < totalStars) {
     stars.push(<EmptyStar key={stars.length} />);
@@ -33,4 +33,8 @@ const FilledStar = styled(FaStar)`
 
 const EmptyStar = styled(FaRegStar)`
   color: rgba(130, 130, 130, 1);
+`;
+
+const HalfFilledStar = styled(FaStarHalfAlt)`
+color: rgba(47, 128, 237, 1);
 `;
