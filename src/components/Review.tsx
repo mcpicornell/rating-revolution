@@ -100,6 +100,7 @@ const ContainerHome = styled.div`
   display: grid;
   grid-template-columns: 1fr 5fr;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ContainerTopBottom = styled.div`

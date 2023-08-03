@@ -19,8 +19,6 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
                 <CommentSvg />
                 <CommentInfo>{getNumberElementsInArray(companyObj!.photos)}</CommentInfo>
             </ContainerInfoReviews>
-        
-            
         </CardContainer>
 
 
@@ -40,6 +38,7 @@ const CardContainer = styled.div`
     padding-bottom: 10px;
     width: 90%;
     margin: 0 auto;
+    cursor: pointer;
 `;
 
 const CompanyPicture = styled.img`
