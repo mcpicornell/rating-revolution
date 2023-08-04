@@ -13,14 +13,14 @@ const Navbar = () => {
       </LogoContainer>
       <UlElementsContainer>
         <LinkList to="/">
-          <LiElement>Home</LiElement>
+          <LiElement>Last Reviews</LiElement>
         </LinkList>
         <LinkList to="/about-us">
           <LiElement>About Us</LiElement>
         </LinkList>
-        <LinkList to="/reviews">
+        {/* <LinkList to="/reviews">
           <LiElement>Reviews</LiElement>
-        </LinkList>
+        </LinkList> */}
         <LinkList to="/hotels">
           <LiElement>Hotels</LiElement>
         </LinkList>

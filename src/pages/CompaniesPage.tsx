@@ -42,7 +42,7 @@ const CompaniesPage = () => {
 
     return (
       <>
-        <CompanyCardContainer>
+        <CompanyCardContainer key="companyCardContainer">
           {content}
         </CompanyCardContainer>
       </>

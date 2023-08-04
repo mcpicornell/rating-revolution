@@ -32,9 +32,9 @@ const Home = () => {
           date: element.date
         }
         content.push(
-          <>
+          
             <Review key={element.reviewId} reviewObj={reviewObj} />
-          </>
+          
         )
       }
     })
@@ -42,7 +42,7 @@ const Home = () => {
   
     return (
       <>
-      <ReviewsContainer>
+      <ReviewsContainer key="reviewsContainer">
         {content}
       </ReviewsContainer>
       </>
