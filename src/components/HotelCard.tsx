@@ -35,17 +35,21 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
         const fetchUser = async (id: string) => {
             const fetchedUser = await getUserById(id);
             if (fetchedUser) {
-                setUsers(prevUsers => [...prevUsers, fetchedUser]);
+                setUsers([...users, fetchedUser]);
             }
         };
     
-        if (!usersFetched) {
-            reviews.forEach(review => {
-                fetchUser(review.userId);
-            });
-            setUsersFetched(true);
+        if (users.length === 0 && usersFetched === false) {
+            const fetchAllUsers = async () => {
+                reviews.forEach(review => {
+                    fetchUser(review.userId);
+                });
+                setUsersFetched(true)
+            }
+            fetchAllUsers();
+            
         }
-      }, [reviews, usersFetched]);
+      }, [reviews, users, usersFetched]);
 
       let userPicture: JSX.Element[] = [];
       console.log(users)

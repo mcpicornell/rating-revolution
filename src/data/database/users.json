@@ -1,8 +1,9 @@
 [
     {
       "userId": "user1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
+      "name": "Thomas Anderson",
+      "nickName": "neo",
+      "email": "neo@neo.com",
       "password": "password123",
       "profilePicture": "https://i.pinimg.com/236x/31/e1/b0/31e1b00743eaeff77c7145ef403572fb--fiction-movies-science-fiction.jpg",
       "reviews": [
@@ -29,9 +30,10 @@
     {
       "userId": "user2",
       "name": "Jane Smith",
+      "nickName": "Jane",
       "email": "jane.smith@example.com",
       "password": "secret123",
-      "profilePicture": "https://i.pinimg.com/236x/31/e1/b0/31e1b00743eaeff77c7145ef403572fb--fiction-movies-science-fiction.jpg",
+      "profilePicture": "../../assets/usersPhotos/jane.jpg",
       "reviews": [
         {
           "reviewId": "review3",
@@ -55,10 +57,11 @@
     },
     {
       "userId": "user3",
-      "name": "Obi-Wan",
-      "email": "high@ground.com",
+      "name": "John Smith",
+      "email": "john@smith.com",
+      "nickName": "John",
       "password": "password123",
-      "profilePicture": "https://i.pinimg.com/236x/31/e1/b0/31e1b00743eaeff77c7145ef403572fb--fiction-movies-science-fiction.jpg",
+      "profilePicture": "../../assets/usersPhotos/john.jpg",
       "reviews": [
         {
           "reviewId": "review3",
@@ -82,10 +85,11 @@
     },
     {
       "userId": "user4",
-      "name": "Jane Smith",
+      "name": "Michelle Johnson",
+      "nickName": "Michelle",
       "email": "jane.smith@example.com",
       "password": "secret123",
-      "profilePicture": "https://i.pinimg.com/236x/31/e1/b0/31e1b00743eaeff77c7145ef403572fb--fiction-movies-science-fiction.jpg",
+      "profilePicture": "../../assets/usersPhotos/michelle.jpg",
       "reviews": [
         {
           "reviewId": "review3",
