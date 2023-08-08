@@ -13,59 +13,64 @@ type CompanyProps = {
 
 const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     const [users, setUsers] = useState<IUser[]>([]);
-    const [usersFetched, setUsersFetched] = useState(false);
     const reviewsArrCopy = [...companyObj!.reviews]
     
     const getLastThreeReviews = (arrayReviews: IReview[]) => {
         const lastReviews = arrayReviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        let lastThreeReviews = [] as IReview[];
-        for(let i=0; i < 3; i++) {
-            if(lastReviews.length<=i){
-                break;
-            }
-            else{
-                lastThreeReviews.push(lastReviews[i])
-            } 
-        }
+        let lastThreeReviews = lastReviews.slice(0, 3);
         return lastThreeReviews
     }
     const reviews = getLastThreeReviews(reviewsArrCopy)
+
     useEffect(() => {
-        
-        const fetchUser = async (id: string) => {
-            const fetchedUser = await getUserById(id);
-            if (fetchedUser) {
-                setUsers([...users, fetchedUser]);
+        const fetchAllUsers = async () => {
+            const uniqueUserIds: { [key: string]: boolean } = {}; 
+            for (let i = 0; i < reviews.length; i++) {
+              uniqueUserIds[reviews[i].userId] = true;
             }
-        };
-    
-        if (users.length === 0 && usersFetched === false) {
-            const fetchAllUsers = async () => {
-                reviews.forEach(review => {
-                    fetchUser(review.userId);
-                });
-                setUsersFetched(true)
-            }
-            fetchAllUsers();
-            
-        }
-      }, [reviews, users, usersFetched]);
+      
+            const fetchUsers = async () => {
+              const fetchUser = async (id: string) => {
+                const fetchedUser = await getUserById(id);
+                if (fetchedUser) {
+                  return fetchedUser;
+                }
+                return null;
+              };
+      
+              const usersArray: IUser[] = [];
+              for (const userId in uniqueUserIds) {
+                if (uniqueUserIds.hasOwnProperty(userId)) {
+                  const user = await fetchUser(userId);
+                  if (user) {
+                    usersArray.push(user);
+                  }
+                }
+              }
+      
+              setUsers(usersArray);
+            };
+      
+            fetchUsers();
+          };
+          fetchAllUsers();
+      }, [reviews]);
 
       let userPicture: JSX.Element[] = [];
-      console.log(users)
+  
       users.forEach((user) => {
         const profilePictureObj =  {
             userId: user.userId,
             profilePicture: user.profilePicture
         }
         userPicture.push(
-            <UserPicture src={profilePictureObj.profilePicture} alt="user"/>
+            <UserPicture key={profilePictureObj.userId} src={profilePictureObj.profilePicture} alt="user"/>
         )
       })
     return(
        <CardContainer>
         <CompanyName>{companyObj?.companyName}</CompanyName> 
-            <CompanyPicture src={companyObj?.photos[getRandomIndex(companyObj?.photos)]}/>
+            <CompanyPicture src={companyObj?.photos[0]}/>
             <StarRating rating={companyObj!.rating} />
             <ContainerBottom>
                 <ContainerUsers>
@@ -73,7 +78,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
                 </ContainerUsers>
                 <ContainerInfoReviews>
                     <CommentSvg />
-                    <CommentInfo>{getNumberElementsInArray(companyObj!.photos)}</CommentInfo>
+                    <CommentInfo>{getNumberElementsInArray(companyObj!.reviews)}</CommentInfo>
                 </ContainerInfoReviews>
             </ContainerBottom>
         </CardContainer>
@@ -115,7 +120,6 @@ display: flex;
 flex-direction: row;
 align-items: center;
 position: relative;
-margin-top: 10px;
 `
 
 const CommentSvg = styled(BiCommentDetail)`
@@ -127,7 +131,8 @@ const CommentInfo = styled.span`
 `
 
 const UserPicture = styled.img`
-  width: 40px;
+  width: 30px;
+  height: 25px;
   border-radius: 30%;
   margin: 0px 5px 0px 5px;
 `;

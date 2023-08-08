@@ -29,11 +29,11 @@
     },
     {
       "userId": "user2",
-      "name": "Jane Smith",
-      "nickName": "Jane",
-      "email": "jane.smith@example.com",
+      "name": "Carrie-Anne Moss",
+      "nickName": "Trinity",
+      "email": "trinityh@trinityh.com",
       "password": "secret123",
-      "profilePicture": "../../assets/usersPhotos/jane.jpg",
+      "profilePicture": "https://smoda.elpais.com/wp-content/uploads/2021/12/matrix-1200x702.jpeg",
       "reviews": [
         {
           "reviewId": "review3",
@@ -57,11 +57,11 @@
     },
     {
       "userId": "user3",
-      "name": "John Smith",
-      "email": "john@smith.com",
-      "nickName": "John",
+      "name": "Laurence Fishburne",
+      "email": "morpheus@morpheus.com",
+      "nickName": "morpheus",
       "password": "password123",
-      "profilePicture": "../../assets/usersPhotos/john.jpg",
+      "profilePicture": "https://www.looper.com/img/gallery/heres-why-we-didnt-see-laurence-fishburnes-morpheus-in-the-matrix-resurrections/intro-1640184659.jpg",
       "reviews": [
         {
           "reviewId": "review3",
@@ -85,11 +85,11 @@
     },
     {
       "userId": "user4",
-      "name": "Michelle Johnson",
-      "nickName": "Michelle",
-      "email": "jane.smith@example.com",
+      "name": "Jada Pinkett Smith",
+      "nickName": "niobe",
+      "email": "niobe@niobe.com",
       "password": "secret123",
-      "profilePicture": "../../assets/usersPhotos/michelle.jpg",
+      "profilePicture": "https://upload.wikimedia.org/wikipedia/en/4/44/MatrixNiobe.jpg",
       "reviews": [
         {
           "reviewId": "review3",

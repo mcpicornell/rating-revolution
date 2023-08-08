@@ -4,7 +4,8 @@ export interface IUser {
     email: string,
     password: string,
     profilePicture: string,
-    reviews: IReview[]
+    reviews: IReview[],
+    nickName: string
 }
 
 export interface IReview {
