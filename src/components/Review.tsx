@@ -7,29 +7,36 @@ import { useState } from "react";
 import { getcompanyById } from "../features/companies/fetchCompanies";
 import { ICompany, IUser } from "../features/interfaces";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getRandomIndex } from "../features/functions";
 
 type ReviewProps = {
-  reviewObj: IReview | undefined;
+  reviewObj: IReview;
 };
 
 const Review: FC<ReviewProps> = ({ reviewObj }) => {
-  const [company, setCompany] = useState<ICompany | null>(null);
+  const [companyObj, setCompanyObj] = useState<ICompany | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
   const location = useLocation();
   const date = new Date(reviewObj!.date).toDateString();
+  const nav = useNavigate();
+
+  const navToCompaniesDetailsOnClick = () => {
+    if (reviewObj) {
+      nav(`/hotels/${reviewObj?.companyId}`, { state: companyObj });
+    }
+  };
 
   useEffect(() => {
     const fetchCompany = async () => {
       const fetchedCompany = await getcompanyById(reviewObj!.companyId);
-      setCompany(fetchedCompany);
+      setCompanyObj(fetchedCompany);
     };
 
-    if (!company) {
+    if (!companyObj) {
       fetchCompany();
     }
-  }, [company, reviewObj]);
+  }, [companyObj, reviewObj]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,13 +52,13 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
   switch (location.pathname) {
     case "/":
       return (
-        <ContainerHome>
+        <ContainerHome onClick={navToCompaniesDetailsOnClick}>
           <CompanyPicture
-            src={company?.photos[getRandomIndex(company?.photos)]}
+            src={companyObj?.photos[getRandomIndex(companyObj?.photos)]}
           />
           <ContainerContent>
             <ContainerTopBottom>
-              <CompanyName>{company?.companyName}</CompanyName>
+              <CompanyName>{companyObj?.companyName}</CompanyName>
               <StarRating rating={reviewObj!.rating} />
             </ContainerTopBottom>
             <Title>{reviewObj!.reviewTitle}:</Title>
@@ -68,7 +75,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
         <ContainerReview>
           <UserPicture src={user?.profilePicture} />
           <ContainerContent>
-            <h3>{company?.companyName}</h3>
+            <h3>{companyObj?.companyName}</h3>
             <StarRating rating={reviewObj!.rating} />
             <SpanGrey>{user?.name}</SpanGrey>
             <SpanGrey>{date}</SpanGrey>

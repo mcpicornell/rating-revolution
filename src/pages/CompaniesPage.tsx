@@ -21,19 +21,19 @@ const CompaniesPage = () => {
 
   if(companiesData){
     const companiesDataCopy = [...companiesData]
-    companiesDataCopy.forEach((element) => {
-      if(element){
+    companiesDataCopy.forEach((company) => {
+      if(company){
         const companyObj = {
-          companyId: element.companyId,
-          companyName: element.companyName,
-          description: element.description,
-          rating: element.rating,
-          photos: element.photos,
-          reviews: element.reviews,
+          companyId: company.companyId,
+          companyName: company.companyName,
+          description: company.description,
+          rating: company.rating,
+          photos: company.photos,
+          reviews: company.reviews,
         }
         content.push(
           <>
-            <HotelCard key={element.companyId} companyObj={companyObj} />
+            <HotelCard key={companyObj.companyId} companyObj={companyObj} />
           </>
         )
       }

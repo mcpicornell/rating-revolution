@@ -10,6 +10,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { PrivateRoute } from "./components/PrivateRoute";
+import CompaniesDetailsPage from "./pages/CompaniesDetailsPage";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginPage key="loginPage" />} />
           <Route path="/" element={<Home key="home"/>} />
           <Route path="/hotels" element={<CompaniesPage key="companiesPage"/>} />
+          <Route path="/hotels/:id" element={<CompaniesDetailsPage key="companiesDetailsPage"/>} />
           <Route path="/reviews" element={<LastReviews key="lastReviews"/>} />
           <Route path="/about-us" element={<AboutUsPage key="aboutUsPage"/>} />
           
