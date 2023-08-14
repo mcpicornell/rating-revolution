@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { PrivateRoute } from "./components/PrivateRoute";
 import CompaniesDetailsPage from "./pages/CompaniesDetailsPage";
-
+import CreateUserPage from "./pages/CreateUserPage"
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Route path="/hotels/:id" element={<CompaniesDetailsPage key="companiesDetailsPage"/>} />
           <Route path="/reviews" element={<LastReviews key="lastReviews"/>} />
           <Route path="/about-us" element={<AboutUsPage key="aboutUsPage"/>} />
-          
+          <Route path="/create-user" element={<CreateUserPage key="crateUserPage"/>} />
           <Route element={<PrivateRoute />} path="/profile">
             <Route element={<ProfilePage />} />
           </Route>
