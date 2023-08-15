@@ -30,6 +30,9 @@ const CompaniesPage = () => {
           rating: company.rating,
           photos: company.photos,
           reviews: company.reviews,
+          contactNumber: company.contactNumber,
+          adress: company.adress,
+          email: company.email,
         }
         content.push(
           <>

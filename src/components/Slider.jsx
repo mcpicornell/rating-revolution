@@ -38,10 +38,12 @@ export default CompaniesDetailsPage;
 const ImgSlider = styled.img`
   width: 100%;
   border-radius: 5px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
 `
 
 const CustomSwiper = styled(Swiper)`
 margin-top: 10px;
+
 .swiper-button-prev {
   background: rgba(0, 0, 0, 0.7); 
     border-radius: 10px;

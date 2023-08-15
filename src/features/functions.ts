@@ -9,3 +9,11 @@ export const getNumberElementsInArray = (array: any) => {
     }
     return elements;
 }
+
+export const addSpacesToPhoneNumber = (phoneNumber: string) => {
+    const cleanPhoneNumber = phoneNumber.replace(/\D/g, '');
+  
+    const formattedPhoneNumber = cleanPhoneNumber.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '+$1 $2 $3 $4');
+  
+    return formattedPhoneNumber;
+  }

@@ -24,5 +24,8 @@ export interface ICompany{
     rating: number,
     description: string,
     photos: string[],
-    reviews:IReview[]
+    reviews:IReview[],
+    email: string,
+    adress: string,
+    contactNumber: string
 }
