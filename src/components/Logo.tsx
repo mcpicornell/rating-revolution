@@ -19,7 +19,7 @@ const LogoContainer = styled.div`
   margin-left: 10px;
   text-decoration: none;
 `;
-const LogoStar = styled(AiFillStar)`
+export const LogoStar = styled(AiFillStar)`
   color: rgba(47, 128, 237, 1);
   width: 30px;
   height: 30px;

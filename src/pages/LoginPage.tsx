@@ -21,7 +21,7 @@ const LoginPage = () => {
             <IoMdLockStyled />
             <InputForm placeholder="Password" type="password" required/>
           </InputContainer>
-          <Button>Login</Button>
+          <ButtonLogin>Login</ButtonLogin>
         </ContainerText>
         <ContainerCreateAccount>
           <SubTitle>Don't have an account yet?</SubTitle>
@@ -110,7 +110,7 @@ const LoginPage = () => {
     margin: 10px;
     width: 250px;
    `;
-   const Button = styled.button`
+   export const ButtonLogin = styled.button`
     margin-top: 10px;
     background-color: rgba(47, 128, 237, 1);
     color: #FFFFFF;
