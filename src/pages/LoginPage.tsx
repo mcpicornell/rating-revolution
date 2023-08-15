@@ -30,10 +30,10 @@ const LoginPage = () => {
           </NavLinkStyled>
         </ContainerCreateAccount>
 
-        <ContainerText>
+        <ContainerCredentials>
           <SubTitle>email: <Title>neo@neo.com</Title></SubTitle>
           <SubTitle>password: <Title>neo</Title></SubTitle>
-        </ContainerText>
+        </ContainerCredentials>
       </LoginForm>
     );
   };
@@ -138,4 +138,9 @@ const LoginPage = () => {
    `
    const NavLinkStyled = styled(NavLink)`
     text-decoration-color: #2D9CDB;
+   `;
+
+   const ContainerCredentials = styled.div`
+    display: flex;
+    justify-content: space-around;
    `;

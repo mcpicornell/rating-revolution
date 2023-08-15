@@ -158,59 +158,8 @@ const CompaniesDetailsPage = () => {
 };
 export default CompaniesDetailsPage;
 
-const AiOutlineUserStyled = styled(AiOutlineUser)`
-  color: rgba(130, 130, 130, 1);
-  position: relative;
-  width: 30px;
-  height: 20px;
-  bottom: 2px;
-  margin-right: 50px;
-  margin-left: 10px;
-`;
 
-const CommentsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
-const MainCommentContainer = styled.div`
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
-  background: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(224, 224, 224, 1);
-  border-radius: 12px;
-  margin: 0 auto;
-  width: 90%;
-  padding: 20px 20px 20px 20px;
-  position: relative;
-  height: 16vh;
-`;
-
-const CommentAndStarsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  justify-content: space-between;
-  width: 100%;
-  padding-bottom: 5px;
-  border-bottom: 1px solid rgba(224, 224, 224, 1);
-`;
-
-const CommentInput = styled.textarea`
-  margin-top: 5px;
-  border: none;
-  margin-left: 10px;
-  resize: none;
-  width: 98%;
-  cursor: pointer;
-  height: 60px;
-`;
-
-const ButtonComment = styled(ButtonLogin)`
-  width: 100px;
-  position: absolute;
-  right: 30px;
-  bottom: 10px;
-`;
 
 const PageContainer = styled.div`
   margin: 0 auto;
@@ -301,8 +250,8 @@ const ReviewSpan = styled.span`
 const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const CardReviewContainer = styled.div`
@@ -357,4 +306,58 @@ const CardInfoContactContainer = styled.div`
 const ContactContainer = styled.div`
   display: flex;
   margin-top: 15px;
+`;
+
+const CommentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const MainCommentContainer = styled.div`
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(224, 224, 224, 1);
+  border-radius: 12px;
+  margin: 0 auto;
+  width: 90%;
+  padding: 20px 20px 20px 20px;
+  position: relative;
+  height: 16vh;
+`;
+
+const CommentAndStarsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+`;
+
+const AiOutlineUserStyled = styled(AiOutlineUser)`
+  color: rgba(130, 130, 130, 1);
+  position: relative;
+  width: 30px;
+  height: 20px;
+  bottom: 2px;
+  margin-right: 50px;
+  margin-left: 10px;
+`;
+
+const CommentInput = styled.textarea`
+  margin-top: 5px;
+  border: none;
+  margin-left: 10px;
+  resize: none;
+  width: 98%;
+  cursor: pointer;
+  height: 60px;
+`;
+
+const ButtonComment = styled(ButtonLogin)`
+  width: 100px;
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
 `;
