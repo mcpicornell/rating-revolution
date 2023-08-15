@@ -68,14 +68,20 @@ export default HoverStarRating;
 const FilledStar = styled(FaStar)`
   color: rgba(47, 128, 237, 1);
   cursor: pointer;
+  width: 22px;
+  height: 22px;
 `;
 
 const EmptyStar = styled(FaRegStar)`
   color: rgba(130, 130, 130, 1);
   cursor: pointer;
+  width: 22px;
+  height: 22px;
 `;
 
 const HalfFilledStar = styled(FaStarHalfAlt)`
   color: rgba(47, 128, 237, 1);
   cursor: pointer;
+  width: 22px;
+  height: 22px;
 `;

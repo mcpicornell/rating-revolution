@@ -158,7 +158,6 @@ const CompaniesDetailsPage = () => {
 };
 export default CompaniesDetailsPage;
 
-
 const AiOutlineUserStyled = styled(AiOutlineUser)`
   color: rgba(130, 130, 130, 1);
   position: relative;
