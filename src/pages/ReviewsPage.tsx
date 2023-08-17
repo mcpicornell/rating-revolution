@@ -21,32 +21,20 @@ const Reviews = () => {
   if(reviewData){
     const reviewDataCopy = [...reviewData]
     const reviewDataOrdered = reviewDataCopy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    reviewDataOrdered.forEach((element) => {
-      if(element){
-        const reviewObj = {
-          reviewId: element.reviewId,
-          reviewText: element.reviewText,
-          companyId: element.companyId,
-          rating: element.rating,
-          userId: element.userId,
-          reviewTitle: element.reviewTitle,
-          date: element.date
-        }
+    reviewDataOrdered.forEach((reviewObj) => {
+      if(reviewObj){
         content.push(
           <>
-            <Review key={element.reviewId} reviewObj={reviewObj} />
+            <Review key={reviewObj.reviewId} reviewObj={reviewObj} />
           </>
         )
       }
     })
   }
-  
     return (
-      <>
       <ReviewsContainer>
         {content}
       </ReviewsContainer>
-      </>
     );
 }
 

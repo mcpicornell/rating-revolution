@@ -8,7 +8,10 @@ import { getcompanyById } from "../features/companies/fetchCompanies";
 import { ICompany, IUser } from "../features/interfaces";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getRandomIndex } from "../features/functions";
+import { checkIfSingular, getRandomIndex } from "../features/functions";
+import { getNumberElementsInArray } from "../features/functions";
+import { SlLike } from "react-icons/sl";
+import { SlDislike } from "react-icons/sl";
 
 type ReviewProps = {
   reviewObj: IReview;
@@ -49,6 +52,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
     }
   }, [user, reviewObj]);
 
+
   switch (location.pathname) {
     case "/":
       return (
@@ -70,18 +74,36 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
           </ContainerContent>
         </ContainerHome>
       );
-    case "/reviews":
+    case `/hotels/${companyObj?.companyId}`:
+    const userTotalReviews = getNumberElementsInArray(user?.reviews);
+    const reviewString = checkIfSingular(userTotalReviews);
       return (
         <ContainerReview>
-          <UserPicture src={user?.profilePicture} />
+          <UserContainer>
+            <UserPicture src={user?.profilePicture} />        
+            <UserDetailsContainer>
+              <SpanName>{user?.nickName}</SpanName>
+              <UserNumberReviewsContainer>
+                <SpanGreyNumber>{userTotalReviews}</SpanGreyNumber>
+                <SpanGrey>{reviewString}</SpanGrey>
+              </UserNumberReviewsContainer>
+            </UserDetailsContainer>
+          </UserContainer>
+          
           <ContainerContent>
-            <h3>{companyObj?.companyName}</h3>
-            <StarRating rating={reviewObj!.rating} />
-            <SpanGrey>{user?.name}</SpanGrey>
-            <SpanGrey>{date}</SpanGrey>
-            <Title>{reviewObj!.reviewTitle}</Title>
-            <p>{reviewObj!.reviewText}</p>
+            <RatingDateContainer>
+              <StarRating rating={reviewObj!.rating} />
+              <SpanGreyDate>{date}</SpanGreyDate>
+            </RatingDateContainer>
+            <TitleReview>{reviewObj!.reviewTitle}</TitleReview>
+            <ReviewText>{reviewObj!.reviewText}</ReviewText>
           </ContainerContent>
+          <LikeIconsContainer>
+              <SlLikeStyled />
+              <NumberLikes>{reviewObj.likes}</NumberLikes>
+              <SlDislikeStyled />
+              <NumberLikes>{reviewObj.dislikes}</NumberLikes>
+          </LikeIconsContainer>
         </ContainerReview>
       );
 
@@ -151,19 +173,35 @@ const SpanGreyHome = styled.span`
 //REVIEWS
 const ContainerReview = styled.div`
   display: grid;
+  border: 1px solid rgba(224, 224, 224, 1);
   grid-template-columns: 1fr 4fr;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border-radius: 12px;
-  width: 80%;
+  width: 70%;
+  margin: 0 auto;
   margin-top: 50px;
-  margin-left: 3%;
   padding-right: 10px;
   padding-bottom: 10px;
-  padding-left: 5px;
+  position: relative;
 `;
 
 const SpanGrey = styled.span`
+  color: rgba(130, 130, 130, 1);
+  font-size: 14px;
+`;
+
+const SpanGreyDate = styled(SpanGrey)`
+  font-size: 12px;
+  margin-left: 10px;
+`;
+
+const SpanGreyNumber = styled(SpanGrey)`
+  margin-right: 2px;
+  font-size: 14px;
+`;
+
+const SpanName = styled.span`
   color: rgba(130, 130, 130, 1);
 `;
 
@@ -173,8 +211,70 @@ const ContainerContent = styled.div`
 `;
 
 const UserPicture = styled.img`
-  width: 80px;
+  width: 60px;
   border-radius: 30%;
   margin: 0 auto;
   margin-top: 20px;
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 70%;
+  margin-left: 5px;
+`
+const UserDetailsContainer = styled.div`
+  
+`
+
+const UserNumberReviewsContainer = styled.div`
+  display: flex;
+`
+
+const LikeIconsContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const SlLikeStyled = styled(SlLike)`
+  cursor: pointer;
+  &:hover{
+    color: rgb(0,255,0);
+  }
+  margin-right: 10px;
+`;
+const SlDislikeStyled = styled(SlDislike)`
+  cursor: pointer;
+  &:hover{
+    color: red;
+  }
+  margin: 0px 10px 0px 20px
+`;
+
+const RatingDateContainer = styled.div`
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+`;
+
+const TitleReview = styled.span`
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
+
+const ReviewText = styled.span`
+  font-size: 14px;
+  margin-bottom: 5px
+`;
+
+const NumberLikes = styled.span`
+  
 `;

@@ -17,3 +17,10 @@ export const addSpacesToPhoneNumber = (phoneNumber: string) => {
   
     return formattedPhoneNumber;
   }
+
+export  const checkIfSingular = (number: number) => {
+    if (number === 1) {
+      return "Review";
+    }
+    return "Reviews";
+  };

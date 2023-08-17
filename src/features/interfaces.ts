@@ -16,6 +16,8 @@ export interface IReview {
     reviewTitle: string,
     reviewText: string,
     date: string,
+    likes: number,
+    dislikes: number
 }
 
 export interface ICompany{

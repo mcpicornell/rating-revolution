@@ -26,18 +26,9 @@ const Home = () => {
     const reviewDataOrdered = reviewDataCopy.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    reviewDataOrdered.forEach((element) => {
-      if (element) {
-        const reviewObj = {
-          reviewId: element.reviewId,
-          reviewText: element.reviewText,
-          companyId: element.companyId,
-          rating: element.rating,
-          userId: element.userId,
-          reviewTitle: element.reviewTitle,
-          date: element.date,
-        };
-        content.push(<Review key={element.reviewId} reviewObj={reviewObj} />);
+    reviewDataOrdered.forEach((reviewObj) => {
+      if (reviewObj) {
+        content.push(<Review key={reviewObj.reviewId} reviewObj={reviewObj} />);
       }
     });
   }

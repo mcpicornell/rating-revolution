@@ -14,6 +14,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import HoverStarRating from "../components/HoverStarRating";
 import { ButtonLogin } from "./LoginPage";
 import { useState } from "react";
+import { checkIfSingular } from "../features/functions";
 
 const CompaniesDetailsPage = () => {
   const location = useLocation();
@@ -24,12 +25,7 @@ const CompaniesDetailsPage = () => {
     setRating(newRating);
   };
 
-  const checkIfSingular = (number: number) => {
-    if (number === 1) {
-      return "Review";
-    }
-    return "Reviews";
-  };
+
 
   const numberReviewsByRating = (number: number) => {
     let numberReviews = 0;
@@ -59,18 +55,9 @@ const CompaniesDetailsPage = () => {
     const reviewDataOrdered = reviewData.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    reviewDataOrdered.forEach((element) => {
-      if (element) {
-        const reviewObj = {
-          reviewId: element.reviewId,
-          reviewText: element.reviewText,
-          companyId: element.companyId,
-          rating: element.rating,
-          userId: element.userId,
-          reviewTitle: element.reviewTitle,
-          date: element.date,
-        };
-        reviews.push(<Review key={element.reviewId} reviewObj={reviewObj} />);
+    reviewDataOrdered.forEach((reviewObj) => {
+      if (reviewObj) {
+        reviews.push(<Review key={reviewObj.reviewId} reviewObj={reviewObj} />);
       }
     });
     for(let i = 5; i > 0; i--){
@@ -158,9 +145,6 @@ const CompaniesDetailsPage = () => {
 };
 export default CompaniesDetailsPage;
 
-
-
-
 const PageContainer = styled.div`
   margin: 0 auto;
   margin-top: 1px;
@@ -171,7 +155,7 @@ const PageContainer = styled.div`
 
 const SliderContainer = styled.div`
   margin: 0 auto;
-  width: 60%;
+  width: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,6 +165,7 @@ const HeaderContainer = styled.div`
   background: rgba(255, 255, 255, 1);
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.05);
   padding-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const Header = styled.div`
@@ -248,23 +233,24 @@ const ReviewSpan = styled.span`
   font-size: 14px;
 `;
 const CardsContainer = styled.div`
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 70%;
 `;
 
 const CardReviewContainer = styled.div`
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border-radius: 12px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 15px;
   padding-bottom: 10px;
-  width: 60%;
+  width: 300px;
   margin: 0 auto;
 `;
 
@@ -276,7 +262,7 @@ const CardInfoContainer = styled.div`
   flex-direction: column;
   padding-bottom: 10px;
   padding-right: 5px;
-  width: 50%;
+  width: 300px;
   margin: 0 auto;
   padding-left: 20px;
   padding-top: 20px;
@@ -319,7 +305,7 @@ const MainCommentContainer = styled.div`
   border: 1px solid rgba(224, 224, 224, 1);
   border-radius: 12px;
   margin: 0 auto;
-  width: 90%;
+  width: 60%;
   padding: 20px 20px 20px 20px;
   position: relative;
   height: 16vh;
@@ -351,7 +337,7 @@ const CommentInput = styled.textarea`
   margin-left: 10px;
   resize: none;
   width: 98%;
-  cursor: pointer;
+  cursor: text;
   height: 60px;
 `;
 
