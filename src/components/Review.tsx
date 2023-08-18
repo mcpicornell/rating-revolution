@@ -85,7 +85,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
               <SpanName>{user?.nickName}</SpanName>
               <UserNumberReviewsContainer>
                 <SpanGreyNumber>{userTotalReviews}</SpanGreyNumber>
-                <SpanGrey>{reviewString}</SpanGrey>
+                <SpanGreyNumber>{reviewString}</SpanGreyNumber>
               </UserNumberReviewsContainer>
             </UserDetailsContainer>
           </UserContainer>
@@ -95,8 +95,8 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
               <StarRating rating={reviewObj!.rating} />
               <SpanGreyDate>{date}</SpanGreyDate>
             </RatingDateContainer>
-            <TitleReview>{reviewObj!.reviewTitle}</TitleReview>
-            <ReviewText>{reviewObj!.reviewText}</ReviewText>
+            <TitleReview>{reviewObj.reviewTitle}</TitleReview>
+            <ReviewText>{reviewObj.reviewText}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
               <SlLikeStyled />
@@ -178,7 +178,7 @@ const ContainerReview = styled.div`
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border-radius: 12px;
-  width: 70%;
+  width: 65%;
   margin: 0 auto;
   margin-top: 50px;
   padding-right: 10px;
@@ -198,7 +198,7 @@ const SpanGreyDate = styled(SpanGrey)`
 
 const SpanGreyNumber = styled(SpanGrey)`
   margin-right: 2px;
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 const SpanName = styled.span`
@@ -211,7 +211,8 @@ const ContainerContent = styled.div`
 `;
 
 const UserPicture = styled.img`
-  width: 60px;
+  width: 50px;
+  height: 40px;
   border-radius: 30%;
   margin: 0 auto;
   margin-top: 20px;
