@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import LoginUserPage from "./pages/LoginUserPage";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import CompaniesPage from "./pages/CompaniesPage";
@@ -12,6 +12,8 @@ import { store } from "./app/store";
 import { PrivateRoute } from "./components/PrivateRoute";
 import CompaniesDetailsPage from "./pages/CompaniesDetailsPage";
 import CreateUserPage from "./pages/CreateUserPage";
+import CreateCompanyPage from "./pages/CreateCompanyPage"
+import LoginCompanyPage from "./pages/LoginCompanyPage";
 
 function App() {
   
@@ -20,7 +22,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/login" element={<LoginPage key="loginPage" />} />
+            <Route path="/login" element={<LoginUserPage key="loginPage" />} />
+            <Route path="/login-hotel" element={<LoginCompanyPage key="loginPage" />} />
             <Route path="/" element={<Home key="home" />} />
             <Route
               path="/hotels"
@@ -40,7 +43,11 @@ function App() {
             />
             <Route
               path="/create-user"
-              element={<CreateUserPage key="crateUserPage" />}
+              element={<CreateUserPage key="createUserPage" />}
+            />
+            <Route
+              path="/create-hotel"
+              element={<CreateCompanyPage key="createCompanyPage" />}
             />
             <Route element={<PrivateRoute />} path="/profile">
               <Route element={<ProfilePage />} />

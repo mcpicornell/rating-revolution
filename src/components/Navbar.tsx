@@ -136,7 +136,6 @@ const LinkList = styled(NavLink)`
   font-weight: 500;
   display: flex;
   align-items: center;
-
   &.active {
     text-decoration: underline 3px solid #08a6e4;
     text-underline-offset: 30px;

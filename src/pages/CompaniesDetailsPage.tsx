@@ -12,7 +12,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import HoverStarRating from "../components/HoverStarRating";
-import { ButtonLogin } from "./LoginPage";
+import { ButtonLogin } from "./LoginUserPage";
 import { useState } from "react";
 import { checkIfSingular } from "../features/functions";
 

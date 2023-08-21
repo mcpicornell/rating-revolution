@@ -6,15 +6,27 @@ import { BiSolidUser } from "react-icons/bi";
 import { GiSpiderMask } from "react-icons/gi";
 import { IoMdLock } from "react-icons/io";
 import { NavLink } from "react-router-dom";
+import DualNavigation from "../components/DualNavigation";
 
 const CreateUserPage = () => {
 
     const onSubmit = () => {
         alert("Sorry! This sections still on development")
     }
+
+    const firstRoute = {
+      routeNav: "/create-user",
+      routeString: "Create User"
+    }
+  
+    const secondRoute = {
+      routeNav: "/create-hotel",
+      routeString: "Create Hotel"
+    }
     
   return (
     <LoginForm onSubmit={onSubmit}>
+      <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} /> 
       <Logo />
       <ContainerText>
         <Title>Join our community!</Title>
@@ -60,7 +72,7 @@ const CreateUserPage = () => {
 };
 export default CreateUserPage;
 
-const LoginForm = styled.form`
+export const LoginForm = styled.form`
   border-radius: 24px;
   margin: 0 auto;
   margin-top: 50px;
@@ -71,13 +83,14 @@ const LoginForm = styled.form`
   min-width: 200px;
   width: 350px;
   padding: 20px 20px 10px 30px;
+  position: relative;
 `;
-const ContainerText = styled.div`
+export const ContainerText = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
 `;
-const Title = styled.span`
+export const Title = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 25px;
@@ -86,7 +99,7 @@ const Title = styled.span`
   margin-top: 10px;
 `;
 
-const SubTitle = styled.span`
+export const SubTitle = styled.span`
   font-size: 13px;
   line-height: 22px;
   letter-spacing: -0.035em;
@@ -96,7 +109,7 @@ const SubTitle = styled.span`
   margin-bottom: 15px;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -109,19 +122,19 @@ const InputContainer = styled.div`
   margin-right: 10px;
 `;
 
-const HiMailStyled = styled(HiMail)`
+export const HiMailStyled = styled(HiMail)`
   color: rgba(130, 130, 130, 1);
   position: relative;
   bottom: 1px;
 `;
 
-const IoMdLockStyled = styled(IoMdLock)`
+export const IoMdLockStyled = styled(IoMdLock)`
   color: rgba(130, 130, 130, 1);
   position: relative;
   bottom: 1px;
 `;
 
-const InputForm = styled.input`
+export const InputForm = styled.input`
   border-radius: 8px;
   border-radius: 8px;
   border: 1px;
@@ -129,7 +142,7 @@ const InputForm = styled.input`
   margin: 10px;
   width: 250px;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   margin-top: 10px;
   background-color: rgba(47, 128, 237, 1);
   color: #ffffff;
@@ -141,7 +154,7 @@ const Button = styled.button`
   width: 92%;
 `;
 
-const ContainerCreateAccount = styled.div`
+export const ContainerCreateAccount = styled.div`
   display: flex;
   justify-content: center;
   margin-right: 10px;
@@ -149,28 +162,28 @@ const ContainerCreateAccount = styled.div`
   margin-bottom: 0px;
 `;
 
-const CreateAccount = styled(SubTitle)`
+export const CreateAccount = styled(SubTitle)`
   margin-left: 5px;
   color: #2d9cdb;
   font-weight: 400;
   cursor: pointer;
 `;
-const NavLinkStyled = styled(NavLink)`
+export const NavLinkStyled = styled(NavLink)`
   text-decoration-color: #2d9cdb;
 `;
 
-const BiImageAddStyled = styled(BiImageAdd)`
+export const BiImageAddStyled = styled(BiImageAdd)`
   color: rgba(130, 130, 130, 1);
   position: relative;
   bottom: 1px;
 `;
-const BiSolidUserStyled = styled(BiSolidUser)`
+export const BiSolidUserStyled = styled(BiSolidUser)`
   color: rgba(130, 130, 130, 1);
   position: relative;
   bottom: 1px;
 `;
 
-const GiSpiderMaskStyled = styled(GiSpiderMask)`
+export const GiSpiderMaskStyled = styled(GiSpiderMask)`
   color: rgba(130, 130, 130, 1);
   position: relative;
   bottom: 1px;

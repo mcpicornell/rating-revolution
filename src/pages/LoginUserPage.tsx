@@ -3,12 +3,23 @@ import styled from "styled-components";
 import { HiMail } from "react-icons/hi";
 import { IoMdLock } from "react-icons/io";
 import { NavLink } from "react-router-dom";
+import DualNavigation from "../components/DualNavigation";
 
-const LoginPage = () => {
+const LoginUserPage = () => {
 
+  const firstRoute = {
+    routeNav: "/login",
+    routeString: "User"
+  }
+
+  const secondRoute = {
+    routeNav: "/login-hotel",
+    routeString: "Hotel"
+  }
 
     return (
       <LoginForm>
+        <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} /> 
         <Logo />
         <ContainerText>
           <Title>Join our community!</Title>
@@ -37,9 +48,9 @@ const LoginPage = () => {
       </LoginForm>
     );
   };
-  export default LoginPage;
+  export default LoginUserPage;
   
-  const LoginForm = styled.form`
+  export const LoginForm = styled.form`
     border-radius: 24px;
     margin: 0 auto;
     margin-top: 50px;
@@ -51,12 +62,12 @@ const LoginPage = () => {
     width: 350px;
     padding: 20px 20px 10px 30px;
   `
-  const ContainerText = styled.div`
+  export const ContainerText = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
   `;
-  const Title = styled.span`
+  export const Title = styled.span`
     font-size: 16px;
     font-weight: 500;
     line-height: 25px;
@@ -67,7 +78,7 @@ const LoginPage = () => {
   `;
   
   
-   const SubTitle = styled.span`
+   export const SubTitle = styled.span`
     font-size: 13px;
     line-height: 22px;
     letter-spacing: -0.035em;
@@ -77,7 +88,7 @@ const LoginPage = () => {
     margin-bottom: 15px;
    `;
 
-  const InputContainer = styled.div`
+  export const InputContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -90,19 +101,19 @@ const LoginPage = () => {
     margin-right: 10px;
   `;
 
-  const HiMailStyled = styled(HiMail)`
+  export const HiMailStyled = styled(HiMail)`
     color: rgba(130, 130, 130, 1);
     position: relative;
     bottom: 1px;
   `;
 
-  const IoMdLockStyled = styled(IoMdLock)`
+  export const IoMdLockStyled = styled(IoMdLock)`
     color: rgba(130, 130, 130, 1);
     position: relative;
     bottom: 1px;
   `;
 
-   const InputForm = styled.input`
+   export const InputForm = styled.input`
     border-radius: 8px;
     border-radius: 8px;
     border: 1px;
@@ -110,7 +121,7 @@ const LoginPage = () => {
     margin: 10px;
     width: 250px;
    `;
-   export const ButtonLogin = styled.button`
+    export const ButtonLogin = styled.button`
     margin-top: 10px;
     background-color: rgba(47, 128, 237, 1);
     color: #FFFFFF;
@@ -120,9 +131,10 @@ const LoginPage = () => {
     font-weight: 600;
     border: none;
     width: 92%;
+    cursor: pointer;
    `;
 
-   const ContainerCreateAccount = styled.div`
+   export const ContainerCreateAccount = styled.div`
     display: flex;
     justify-content: center;
     margin-right: 10px;
@@ -130,17 +142,17 @@ const LoginPage = () => {
     margin-bottom: 0px;
    `
 
-   const CreateAccount = styled(SubTitle)`
+   export const CreateAccount = styled(SubTitle)`
     margin-left: 5px;
     color: #2D9CDB;
     font-weight: 400;
     cursor: pointer;
    `
-   const NavLinkStyled = styled(NavLink)`
+   export const NavLinkStyled = styled(NavLink)`
     text-decoration-color: #2D9CDB;
    `;
 
-   const ContainerCredentials = styled.div`
+   export const ContainerCredentials = styled.div`
     display: flex;
     justify-content: space-around;
    `;
