@@ -3,9 +3,7 @@ import { ICompany, IReview, IUser } from "../features/interfaces";
 import { FC, useEffect, useState } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import StarRating from "./StarRating";
-import {
-  getNumberElementsInArray,
-} from "../features/functions";
+import { getNumberElementsInArray } from "../features/functions";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -104,7 +102,6 @@ const CardContainer = styled.div`
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border-radius: 12px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,6 +109,7 @@ const CardContainer = styled.div`
   padding-bottom: 10px;
   width: 80%;
   margin: 0 auto;
+  margin-bottom: 30px;
   cursor: pointer;
 `;
 

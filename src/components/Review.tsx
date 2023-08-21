@@ -52,7 +52,6 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
     }
   }, [user, reviewObj]);
 
-
   switch (location.pathname) {
     case "/":
       return (
@@ -75,12 +74,12 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
         </ContainerHome>
       );
     case `/hotels/${companyObj?.companyId}`:
-    const userTotalReviews = getNumberElementsInArray(user?.reviews);
-    const reviewString = checkIfSingular(userTotalReviews);
+      const userTotalReviews = getNumberElementsInArray(user?.reviews);
+      const reviewString = checkIfSingular(userTotalReviews);
       return (
         <ContainerReview>
           <UserContainer>
-            <UserPicture src={user?.profilePicture} />        
+            <UserPicture src={user?.profilePicture} />
             <UserDetailsContainer>
               <SpanName>{user?.nickName}</SpanName>
               <UserNumberReviewsContainer>
@@ -89,7 +88,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
               </UserNumberReviewsContainer>
             </UserDetailsContainer>
           </UserContainer>
-          
+
           <ContainerContent>
             <RatingDateContainer>
               <StarRating rating={reviewObj!.rating} />
@@ -99,10 +98,10 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
             <ReviewText>{reviewObj.reviewText}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
-              <SlLikeStyled />
-              <NumberLikes>{reviewObj.likes}</NumberLikes>
-              <SlDislikeStyled />
-              <NumberLikes>{reviewObj.dislikes}</NumberLikes>
+            <SlLikeStyled />
+            <NumberLikes>{reviewObj.likes}</NumberLikes>
+            <SlDislikeStyled />
+            <NumberLikes>{reviewObj.dislikes}</NumberLikes>
           </LikeIconsContainer>
         </ContainerReview>
       );
@@ -226,14 +225,12 @@ const UserContainer = styled.div`
   text-align: center;
   width: 70%;
   margin-left: 5px;
-`
-const UserDetailsContainer = styled.div`
-  
-`
+`;
+const UserDetailsContainer = styled.div``;
 
 const UserNumberReviewsContainer = styled.div`
   display: flex;
-`
+`;
 
 const LikeIconsContainer = styled.div`
   position: absolute;
@@ -245,17 +242,17 @@ const LikeIconsContainer = styled.div`
 
 const SlLikeStyled = styled(SlLike)`
   cursor: pointer;
-  &:hover{
-    color: rgb(0,255,0);
+  &:hover {
+    color: rgb(0, 255, 0);
   }
   margin-right: 10px;
 `;
 const SlDislikeStyled = styled(SlDislike)`
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: red;
   }
-  margin: 0px 10px 0px 20px
+  margin: 0px 10px 0px 20px;
 `;
 
 const RatingDateContainer = styled.div`
@@ -273,9 +270,7 @@ const TitleReview = styled.span`
 
 const ReviewText = styled.span`
   font-size: 14px;
-  margin-bottom: 5px
+  margin-bottom: 5px;
 `;
 
-const NumberLikes = styled.span`
-  
-`;
+const NumberLikes = styled.span``;

@@ -81,6 +81,12 @@ const CardContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 30px;
   padding: 20px 0px 20px 0px;
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -108,6 +114,10 @@ const TitleCard = styled.h3`
   text-align: left;
   margin-top: 10px;
   margin-bottom: 3%;
+  @media (max-width: 900px) {
+    font-size: 25px;
+    text-align: center;
+  }
 `;
 const TextCard = styled.p`
   font-family: Noto Sans;
@@ -116,6 +126,9 @@ const TextCard = styled.p`
   text-align: justify;
   line-height: 22px;
   margin-right: 40px;
+  @media (max-width: 900px) {
+    margin-left: 40px;
+  }
 `;
 
 const TextCard2 = styled(TextCard)`

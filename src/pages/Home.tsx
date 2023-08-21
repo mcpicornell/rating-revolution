@@ -45,5 +45,8 @@ const ReviewsContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   width: 100%;
   margin: 0 auto;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 export default Home;

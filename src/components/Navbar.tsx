@@ -1,33 +1,45 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+
+interface PropsOpenMenu {
+  isOpen: boolean;
+}
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeOpenMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+  const closeMenu = () => {
+    setIsOpen(false);
+  }
   return (
     <Nav>
-      <LogoContainer to="/">
+      <LogoContainer to="/" onClick={closeMenu}>
         <Logo />
         <Title>
           Rating <Subtitle>Revolution</Subtitle>
         </Title>
       </LogoContainer>
-      <UlElementsContainer>
-        <LinkList to="/">
+      <UlElementsContainer isOpen={isOpen}>
+        <LinkList to="/" onClick={closeMenu} >
           <LiElement>Last Reviews</LiElement>
         </LinkList>
-        <LinkList to="/about-us">
+        <LinkList to="/about-us" onClick={closeMenu} >
           <LiElement>About Us</LiElement>
         </LinkList>
-        {/* <LinkList to="/reviews">
-          <LiElement>Reviews</LiElement>
-        </LinkList> */}
-        <LinkList to="/hotels">
+        <LinkList to="/hotels" onClick={closeMenu} >
           <LiElement>Hotels</LiElement>
         </LinkList>
-        <LinkList to="/profile">
+        <LinkList to="/profile" onClick={closeMenu} >
           <LiElement>Profile</LiElement>
         </LinkList>
       </UlElementsContainer>
+      <FaBarsStyled onClick={closeOpenMenu}/>
     </Nav>
   );
 };
@@ -73,17 +85,50 @@ const Subtitle = styled.span`
   line-height: 27px;
 `;
 
-const UlElementsContainer = styled.ul`
+const UlElementsContainer = styled.ul<PropsOpenMenu>`
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: 500px;
+  position: relative;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    position: absolute;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    width: 100%;
+    top: 60px;
+    visibility: ${(props) => (props.isOpen === false ? "hidden" : "visible")};
+    padding-left: 0px;
+    z-index: 1;
+  }
+`;
+
+const FaBarsStyled = styled(FaBars)`
+  visibility: hidden;
+  position: absolute;
+  top: -500%;
+  @media (max-width: 900px) {
+    visibility: visible;
+    position: relative;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    color: rgba(47, 128, 237, 1);
+    cursor: pointer;
+  }
 `;
 
 const LiElement = styled.li`
   list-style-type: none;
-  color:#000000;
+  color: #000000;
   text-align: center;
+  @media (max-width: 900px) {
+    padding: 15px 0px 10px 0px;
+  }
 `;
 
 const LinkList = styled(NavLink)`
@@ -93,12 +138,18 @@ const LinkList = styled(NavLink)`
   align-items: center;
 
   &.active {
-    text-decoration: underline 3px solid #08A6E4;
+    text-decoration: underline 3px solid #08a6e4;
     text-underline-offset: 30px;
+    @media (max-width: 900px) {
+      text-decoration: none;
+    }
   }
 
-  :hover{
-    text-decoration: underline 3px solid #08A6E4;
+  :hover {
+    text-decoration: underline 3px solid #08a6e4;
     text-underline-offset: 30px;
+    @media (max-width: 900px) {
+      text-decoration: none;
+    }
   }
 `;
