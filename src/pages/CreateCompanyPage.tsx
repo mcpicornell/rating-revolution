@@ -59,7 +59,7 @@ const CreateCompanyPage = () => {
       </ContainerText>
       <ContainerCreateAccount>
         <SubTitle>Already a member?</SubTitle>
-        <NavLinkStyled to="/login">
+        <NavLinkStyled to="/login-hotel">
           <CreateAccount>Login</CreateAccount>
         </NavLinkStyled>
       </ContainerCreateAccount>

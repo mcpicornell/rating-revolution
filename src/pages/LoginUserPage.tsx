@@ -4,9 +4,14 @@ import { HiMail } from "react-icons/hi";
 import { IoMdLock } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import DualNavigation from "../components/DualNavigation";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { IUser } from "../features/interfaces";
+import { useEffect } from "react";
+import { getUserByEmail } from "../features/users/fetchUsers";
 
 const LoginUserPage = () => {
-
+  const nav = useNavigate();
   const firstRoute = {
     routeNav: "/login",
     routeString: "User"
@@ -16,9 +21,46 @@ const LoginUserPage = () => {
     routeNav: "/login-hotel",
     routeString: "Hotel"
   }
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [userObj, setUserObj] = useState<IUser>();
+
+  const handleInputEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event?.target.value)
+  };
+  const handleInputPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event?.target.value)
+  };
+  
+  const onSubmitHandler = () => {
+    if(email === "neo@neo.com" && password === "neo") {
+      
+      localStorage.setItem("auth", "true");
+      const obj = JSON.stringify({profile: "user", id: userObj?.userId});
+      localStorage.setItem("profile", obj);
+      if(localStorage.getItem("auth")){
+        nav(`/profile/${userObj?.userId}`, {state: userObj})
+      }
+    }
+  };
+
+  useEffect(() => {
+    if(!userObj){
+      const fetchCompany = async (email: string) => {
+        const fetchedUser = await getUserByEmail(email);
+        if (fetchedUser) {
+          setUserObj(fetchedUser);
+        }
+        return null;
+      };
+    if(email){
+      fetchCompany(email)
+    }
+    }
+  }, [email, userObj]);
 
     return (
-      <LoginForm>
+      <LoginForm onSubmit={onSubmitHandler}>
         <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} /> 
         <Logo />
         <ContainerText>
@@ -26,13 +68,13 @@ const LoginUserPage = () => {
           <SubTitle>Your reviews makes the difference</SubTitle>
           <InputContainer>
             <HiMailStyled />
-            <InputForm placeholder="Email" type="email" required/>
+            <InputForm placeholder="Email" type="email" required onChange={handleInputEmailChange}/>
           </InputContainer>
           <InputContainer>
             <IoMdLockStyled />
-            <InputForm placeholder="Password" type="password" required/>
+            <InputForm placeholder="Password" type="password" required onChange={handleInputPasswordChange}/>
           </InputContainer>
-          <ButtonLogin>Login</ButtonLogin>
+          <ButtonLogin type="submit">Login</ButtonLogin>
         </ContainerText>
         <ContainerCreateAccount>
           <SubTitle>Don't have an account yet?</SubTitle>

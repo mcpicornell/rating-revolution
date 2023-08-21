@@ -8,6 +8,8 @@
     "email": "email@example.com",
     "adress": "C/Crime Alley, 1939",
     "contactNumber": "+34666666666",
+    "CIF": "B01",
+    "password": "1234",
     "reviews": [
       {
         "reviewId": "review1",
@@ -42,6 +44,8 @@
     "email": "email@example.com",
     "adress": "C/Crime Alley, 1939",
     "contactNumber": "+34666666666",
+    "CIF": "B02",
+    "password": "1234",
     "reviews": [
       {
         "reviewId": "review2",
@@ -64,6 +68,8 @@
     "email": "email@example.com",
     "adress": "C/Crime Alley, 1939",
     "contactNumber": "+34666666666",
+    "CIF": "B03",
+    "password": "1234",
     "photos":["https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1623718649591-311775a30c43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", "https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"],
     "reviews": [
       {

@@ -14,6 +14,7 @@ import CompaniesDetailsPage from "./pages/CompaniesDetailsPage";
 import CreateUserPage from "./pages/CreateUserPage";
 import CreateCompanyPage from "./pages/CreateCompanyPage"
 import LoginCompanyPage from "./pages/LoginCompanyPage";
+import ConfigPage from "./pages/ConfigPage";
 
 function App() {
   
@@ -51,6 +52,12 @@ function App() {
             />
             <Route element={<PrivateRoute />} path="/profile">
               <Route element={<ProfilePage />} />
+            </Route>
+            <Route element={<PrivateRoute />} path="/profile/:id">
+              <Route element={<ProfilePage />} />
+            </Route>
+            <Route element={<PrivateRoute />} path="/config/:id">
+              <Route element={<ConfigPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />

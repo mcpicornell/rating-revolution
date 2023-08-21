@@ -1,50 +1,112 @@
 import Logo from "../components/Logo";
 import DualNavigation from "../components/DualNavigation";
-import {LoginForm, ContainerText, Title ,SubTitle ,InputContainer 
-  , HiMailStyled , IoMdLockStyled , InputForm , ButtonLogin , ContainerCreateAccount ,
-   CreateAccount , NavLinkStyled , ContainerCredentials } from "./LoginUserPage"
+import {LiaHotelSolid} from "react-icons/lia"
+import {
+  LoginForm,
+  ContainerText,
+  Title,
+  SubTitle,
+  InputContainer,
+  IoMdLockStyled,
+  InputForm,
+  ButtonLogin,
+  ContainerCreateAccount,
+  CreateAccount,
+  NavLinkStyled,
+  ContainerCredentials,
+} from "./LoginUserPage";
+import styled from "styled-components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getcompanyByCIF } from "../features/companies/fetchCompanies";
+import { ICompany } from "../features/interfaces";
 
 const LoginCompanyPage = () => {
   const firstRoute = {
     routeNav: "/login",
-    routeString: "User"
-  }
+    routeString: "User",
+  };
 
   const secondRoute = {
     routeNav: "/login-hotel",
-    routeString: "Hotel"
-  }
-
-    return (
-      <LoginForm>
-        <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} /> 
-        <Logo />
-        <ContainerText>
-          <Title>Join our community!</Title>
-          <SubTitle>Your reviews makes the difference</SubTitle>
-          <InputContainer>
-            <HiMailStyled />
-            <InputForm placeholder="CIF" type="text" required/>
-          </InputContainer>
-          <InputContainer>
-            <IoMdLockStyled />
-            <InputForm placeholder="Password" type="password" required/>
-          </InputContainer>
-          <ButtonLogin>Login</ButtonLogin>
-        </ContainerText>
-        <ContainerCreateAccount>
-          <SubTitle>Don't have an account yet?</SubTitle>
-          <NavLinkStyled to="/create-user">
-            <CreateAccount>Create an account</CreateAccount>
-          </NavLinkStyled>
-        </ContainerCreateAccount>
-
-        <ContainerCredentials>
-          <SubTitle>CIF: <Title>B57</Title></SubTitle>
-          <SubTitle>password: <Title>neo</Title></SubTitle>
-        </ContainerCredentials>
-      </LoginForm>
-    );
+    routeString: "Hotel",
   };
-  export default LoginCompanyPage;
+  const nav = useNavigate();
+  const [CIF, setCIF] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [companyObj, setCompanyObj] = useState<ICompany>();
+
+  const handleInputCIFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCIF(event?.target.value)
+  };
+  const handleInputPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event?.target.value)
+  };
+
+  useEffect(() => {
+    if(!companyObj){
+      const fetchCompany = async (CIF: string) => {
+        const fetchedCompany = await getcompanyByCIF(CIF);
+        if (fetchedCompany) {
+          setCompanyObj(fetchedCompany);
+        }
+        return null;
+      };
+    if(CIF){
+      fetchCompany(CIF)
+    }
+    }
+  }, [CIF, companyObj]);
   
+  const onSubmitHandler = () => {
+    if(CIF === "B01" && password === "1234") {
+      localStorage.setItem("auth", "true");
+      const obj = JSON.stringify({profile: "company", id: companyObj?.companyId});
+      localStorage.setItem("profile", obj);
+      if(localStorage.getItem("auth")){
+        nav(`/profile/${companyObj?.companyId}`, {state: companyObj})
+      }
+    }
+  };
+
+  return (
+    <LoginForm onSubmit={onSubmitHandler}> 
+      <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} />
+      <Logo />
+      <ContainerText>
+        <Title>Join our community!</Title>
+        <SubTitle>Your reviews makes the difference</SubTitle>
+        <InputContainer>
+          <LiaHotelSolidStyled />
+          <InputForm placeholder="CIF" type="text" required onChange={handleInputCIFChange}/>
+        </InputContainer>
+        <InputContainer>
+          <IoMdLockStyled />
+          <InputForm placeholder="Password" type="password" required onChange={handleInputPasswordChange}/>
+        </InputContainer>
+        <ButtonLogin type="submit">Login</ButtonLogin>
+      </ContainerText>
+      <ContainerCreateAccount>
+        <SubTitle>Don't have an account yet?</SubTitle>
+        <NavLinkStyled to="/create-hotel">
+          <CreateAccount>Create an account</CreateAccount>
+        </NavLinkStyled>
+      </ContainerCreateAccount>
+
+      <ContainerCredentials>
+        <SubTitle>
+          CIF: <Title>B01</Title>
+        </SubTitle>
+        <SubTitle>
+          password: <Title>1234</Title>
+        </SubTitle>
+      </ContainerCredentials>
+    </LoginForm>
+  );
+};
+export default LoginCompanyPage;
+
+const LiaHotelSolidStyled = styled(LiaHotelSolid)`
+  
+`;

@@ -24,19 +24,8 @@ const CompaniesPage = () => {
 
   if (companiesData) {
     const companiesDataCopy = [...companiesData];
-    companiesDataCopy.forEach((company) => {
-      if (company) {
-        const companyObj = {
-          companyId: company.companyId,
-          companyName: company.companyName,
-          description: company.description,
-          rating: company.rating,
-          photos: company.photos,
-          reviews: company.reviews,
-          contactNumber: company.contactNumber,
-          adress: company.adress,
-          email: company.email,
-        };
+    companiesDataCopy.forEach((companyObj) => {
+      if (companyObj) {
         content.push(
           <>
             <HotelCard key={companyObj.companyId} companyObj={companyObj} />
@@ -47,11 +36,10 @@ const CompaniesPage = () => {
   }
 
   return (
-    <>
       <CompanyCardContainer key="companyCardContainer">
         {content}
       </CompanyCardContainer>
-    </>
+    
   );
 };
 export default CompaniesPage;

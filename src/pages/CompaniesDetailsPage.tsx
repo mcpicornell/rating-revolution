@@ -25,8 +25,6 @@ const CompaniesDetailsPage = () => {
     setRating(newRating);
   };
 
-
-
   const numberReviewsByRating = (number: number) => {
     let numberReviews = 0;
     for (let i = 0; i < companyObj.reviews.length; i++) {
@@ -48,8 +46,6 @@ const CompaniesDetailsPage = () => {
   let reviews: JSX.Element[] = [];
   let cardRating: JSX.Element[] = [];
 
-
-
   if (companyObj.reviews) {
     const reviewData = [...companyObj.reviews];
     const reviewDataOrdered = reviewData.sort(
@@ -60,16 +56,16 @@ const CompaniesDetailsPage = () => {
         reviews.push(<Review key={reviewObj.reviewId} reviewObj={reviewObj} />);
       }
     });
-    for(let i = 5; i > 0; i--){
+    for (let i = 5; i > 0; i--) {
       cardRating.push(
         <CardStarRating>
-            <StarRating rating={i} />
-            <ReviewSpan>
-              {numberReviewsByRating(i)}{" "}
-              {checkIfSingular(numberReviewsByRating(i))}
-            </ReviewSpan>
-          </CardStarRating>
-      )
+          <StarRating rating={i} />
+          <ReviewSpan>
+            {numberReviewsByRating(i)}{" "}
+            {checkIfSingular(numberReviewsByRating(i))}
+          </ReviewSpan>
+        </CardStarRating>
+      );
     }
   }
 
@@ -106,9 +102,7 @@ const CompaniesDetailsPage = () => {
       </SliderContainer>
 
       <CardsContainer>
-        <CardReviewContainer>
-          {cardRating}
-        </CardReviewContainer>
+        <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
           <SpanCardTitle>{companyObj.companyName}</SpanCardTitle>
@@ -133,7 +127,7 @@ const CompaniesDetailsPage = () => {
         <MainCommentContainer>
           <CommentAndStarsContainer>
             <AiOutlineUserStyled />
-            <HoverStarRating onChangeRating={handleRatingChange}/>
+            <HoverStarRating onChangeRating={handleRatingChange} />
           </CommentAndStarsContainer>
           <CommentInput placeholder="Write a review..." />
           <ButtonComment>Comment</ButtonComment>

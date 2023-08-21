@@ -23,6 +23,17 @@ export const getcompanyById = async (companyId: string): Promise<ICompany | null
     });
 };
 
+export const getcompanyByCIF = async (CIF: string): Promise<ICompany | null> => {
+    const companies: ICompany[] = companiesJSON
+  
+    const foundcompany = companies.find((company) => company.CIF === CIF);
+    return await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(foundcompany || null);
+      }, 200);
+    });
+};
+
 export const addCompany = createAsyncThunk<ICompany, ICompany>('companies/addCompany', async (companyObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {

@@ -29,5 +29,7 @@ export interface ICompany{
     reviews:IReview[],
     email: string,
     adress: string,
-    contactNumber: string
+    contactNumber: string,
+    CIF: string,
+    password: string
 }

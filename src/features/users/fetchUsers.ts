@@ -23,6 +23,16 @@ export const getUserById = async (userId: string): Promise<IUser | null> => {
     });
 };
 
+export const getUserByEmail = async (email: string): Promise<IUser | null> => {
+    const users: IUser[] = usersJSON
+    const foundUser = users.find((user) => user.email === email);
+    return await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(foundUser || null);
+      }, 200);
+    });
+};
+
 export const addUser = createAsyncThunk<IUser, IUser>('users/addUser', async (userObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {

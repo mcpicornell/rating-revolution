@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineLogin } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { isLoggedIn } from "./PrivateRoute";
+import { useNavigate } from "react-router-dom";
 
 interface PropsOpenMenu {
   isOpen: boolean;
@@ -10,13 +14,63 @@ interface PropsOpenMenu {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const nav = useNavigate();
   const closeOpenMenu = () => {
     setIsOpen((prevState) => !prevState);
   };
   const closeMenu = () => {
     setIsOpen(false);
   }
+  const profileData = localStorage.getItem("profile");
+
+  const navToProfile = (profileData: string) => {
+    if (profileData !== null) {
+      const parsedData = JSON.parse(profileData);
+      return `/profile/${parsedData.id}`;
+    }
+    return "/profile"
+  }
+  const routeProfile = navToProfile(profileData as string);
+
+  const navToLogin = () => {
+    if (profileData !== null) {
+      const parsedData = JSON.parse(profileData);
+      if(parsedData.profile === "company"){
+        return nav("/login-hotel");
+      }
+      return nav("/login");
+    }
+    return nav("/login");
+  }
+  const logOut = () => {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("profile");
+  }
+
+  const LogIcon= () => {
+    if(isLoggedIn()=== false){
+      return(
+        <>
+          <AiOutlineLoginStyled onClick={() => {
+            closeMenu();
+            navToLogin();
+          }}/>
+        </>
+          
+      )
+    }
+    return (
+      <>
+        <AiOutlineLogoutStyled onClick={() => {
+            closeMenu();
+            logOut();
+            navToLogin();
+          }}/>
+      </>
+      
+    )
+  }
+
   return (
     <Nav>
       <LogoContainer to="/" onClick={closeMenu}>
@@ -35,15 +89,33 @@ const Navbar = () => {
         <LinkList to="/hotels" onClick={closeMenu} >
           <LiElement>Hotels</LiElement>
         </LinkList>
-        <LinkList to="/profile" onClick={closeMenu} >
+        <LinkList to={routeProfile} onClick={closeMenu} >
           <LiElement>Profile</LiElement>
         </LinkList>
+        {LogIcon()}
+          
       </UlElementsContainer>
       <FaBarsStyled onClick={closeOpenMenu}/>
     </Nav>
   );
 };
 export default Navbar;
+
+const AiOutlineLoginStyled = styled(AiOutlineLogin)`
+  color: rgba(47, 128, 237, 1);
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+`
+
+const AiOutlineLogoutStyled = styled(AiOutlineLogout)`
+  color: rgba(47, 128, 237, 1);
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+`
 
 const Nav = styled.nav`
   display: flex;
