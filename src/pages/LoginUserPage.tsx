@@ -5,10 +5,10 @@ import { IoMdLock } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import DualNavigation from "../components/DualNavigation";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { IUser } from "../features/interfaces";
-import { useEffect } from "react";
 import { getUserByEmail } from "../features/users/fetchUsers";
+import { useState, FormEvent, useEffect } from "react";
+
 
 const LoginUserPage = () => {
   const nav = useNavigate();
@@ -32,21 +32,22 @@ const LoginUserPage = () => {
     setPassword(event?.target.value)
   };
   
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if(email === "neo@neo.com" && password === "neo") {
       
       localStorage.setItem("auth", "true");
       const obj = JSON.stringify({profile: "user", id: userObj?.userId});
       localStorage.setItem("profile", obj);
       if(localStorage.getItem("auth")){
-        nav(`/profile/${userObj?.userId}`, {state: userObj})
+        nav(`/profile/${userObj?.userId}`)
       }
     }
   };
 
   useEffect(() => {
     if(!userObj){
-      const fetchCompany = async (email: string) => {
+      const fetchUser = async (email: string) => {
         const fetchedUser = await getUserByEmail(email);
         if (fetchedUser) {
           setUserObj(fetchedUser);
@@ -54,7 +55,7 @@ const LoginUserPage = () => {
         return null;
       };
     if(email){
-      fetchCompany(email)
+      fetchUser(email)
     }
     }
   }, [email, userObj]);

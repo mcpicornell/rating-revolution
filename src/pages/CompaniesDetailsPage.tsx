@@ -16,9 +16,22 @@ import { ButtonLogin } from "./LoginUserPage";
 import { useState } from "react";
 import { checkIfSingular } from "../features/functions";
 
-const CompaniesDetailsPage = () => {
+type PropsCompaniesDetailsPage = {
+  company?: ICompany;
+  isHidden?: boolean;
+}
+
+const CompaniesDetailsPage = ({company, isHidden}: PropsCompaniesDetailsPage) => {
   const location = useLocation();
-  const companyObj: ICompany = location.state;
+  const [companyObj, setCompanyObj] = useState<ICompany>();
+
+  if(company){
+    setCompanyObj(company);
+  }
+  else{
+    setCompanyObj(location.state as ICompany);
+  }
+
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (newRating: number) => {
@@ -27,8 +40,8 @@ const CompaniesDetailsPage = () => {
 
   const numberReviewsByRating = (number: number) => {
     let numberReviews = 0;
-    for (let i = 0; i < companyObj.reviews.length; i++) {
-      if (companyObj.reviews[i].rating === number) {
+    for (let i = 0; i < companyObj!.reviews.length; i++) {
+      if (companyObj!.reviews[i].rating === number) {
         numberReviews++;
       }
     }
@@ -36,18 +49,18 @@ const CompaniesDetailsPage = () => {
   };
 
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj.contactNumber
+    companyObj!.contactNumber
   );
-  const numberReviews = getNumberElementsInArray(companyObj.reviews);
+  const numberReviews = getNumberElementsInArray(companyObj!.reviews);
   const reviewString = checkIfSingular(
-    getNumberElementsInArray(companyObj.reviews)
+    getNumberElementsInArray(companyObj!.reviews)
   );
 
   let reviews: JSX.Element[] = [];
   let cardRating: JSX.Element[] = [];
 
-  if (companyObj.reviews) {
-    const reviewData = [...companyObj.reviews];
+  if (companyObj!.reviews) {
+    const reviewData = [...companyObj!.reviews];
     const reviewDataOrdered = reviewData.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
@@ -73,9 +86,9 @@ const CompaniesDetailsPage = () => {
     <PageContainer>
       <HeaderContainer>
         <Header>
-          <Title>{companyObj.companyName}</Title>
+          <Title>{companyObj!.companyName}</Title>
           <StarInfoContainer>
-            <StarRating rating={companyObj.rating} />
+            <StarRating rating={companyObj!.rating} />
             <ReviewSpan>
               {numberReviews} {reviewString}
             </ReviewSpan>
@@ -84,7 +97,7 @@ const CompaniesDetailsPage = () => {
         <SubHeader>
           <SubHeaderElementContainer>
             <MdLocationOnStyled />
-            <SpanGrey>{companyObj.adress}</SpanGrey>
+            <SpanGrey>{companyObj!.adress}</SpanGrey>
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <BsFillTelephoneFillStyled />
@@ -92,7 +105,7 @@ const CompaniesDetailsPage = () => {
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <HiMailStyled />
-            <SpanGrey>{companyObj.email}</SpanGrey>
+            <SpanGrey>{companyObj!.email}</SpanGrey>
           </SubHeaderElementContainer>
         </SubHeader>
       </HeaderContainer>
@@ -105,12 +118,12 @@ const CompaniesDetailsPage = () => {
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
-          <SpanCardTitle>{companyObj.companyName}</SpanCardTitle>
-          <SpanCardDescription>{companyObj.description}</SpanCardDescription>
+          <SpanCardTitle>{companyObj!.companyName}</SpanCardTitle>
+          <SpanCardDescription>{companyObj!.description}</SpanCardDescription>
           <CardInfoContactContainer>
             <ContactContainer>
               <HiMail />
-              <SpanGreyStyled>{companyObj.email}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj!.email}</SpanGreyStyled>
             </ContactContainer>
             <ContactContainer>
               <BsFillTelephoneFill />
@@ -118,7 +131,7 @@ const CompaniesDetailsPage = () => {
             </ContactContainer>
             <ContactContainer>
               <MdLocationOn />
-              <SpanGreyStyled>{companyObj.adress}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj!.adress}</SpanGreyStyled>
             </ContactContainer>
           </CardInfoContactContainer>
         </CardInfoContainer>

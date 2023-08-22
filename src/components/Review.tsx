@@ -4,7 +4,7 @@ import { IReview } from "../features/interfaces";
 import { useEffect } from "react";
 import { getUserById } from "../features/users/fetchUsers";
 import { useState } from "react";
-import { getcompanyById } from "../features/companies/fetchCompanies";
+import { getCompanyById } from "../features/companies/fetchCompanies";
 import { ICompany, IUser } from "../features/interfaces";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
 
   useEffect(() => {
     const fetchCompany = async () => {
-      const fetchedCompany = await getcompanyById(reviewObj!.companyId);
+      const fetchedCompany = await getCompanyById(reviewObj!.companyId);
       setCompanyObj(fetchedCompany);
     };
 

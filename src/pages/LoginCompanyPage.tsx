@@ -16,9 +16,8 @@ import {
   ContainerCredentials,
 } from "./LoginUserPage";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { getcompanyByCIF } from "../features/companies/fetchCompanies";
 import { ICompany } from "../features/interfaces";
 
@@ -59,13 +58,14 @@ const LoginCompanyPage = () => {
     }
   }, [CIF, companyObj]);
   
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     if(CIF === "B01" && password === "1234") {
       localStorage.setItem("auth", "true");
       const obj = JSON.stringify({profile: "company", id: companyObj?.companyId});
       localStorage.setItem("profile", obj);
       if(localStorage.getItem("auth")){
-        nav(`/profile/${companyObj?.companyId}`, {state: companyObj})
+        nav(`/profile/${companyObj?.companyId}`)
       }
     }
   };

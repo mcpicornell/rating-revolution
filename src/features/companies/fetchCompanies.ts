@@ -12,13 +12,13 @@ export const fetchCompanies = createAsyncThunk<ICompany[], void>('companies/fetc
     })
 });
 
-export const getcompanyById = async (companyId: string): Promise<ICompany | null> => {
+export const getCompanyById = async (companyId: string): Promise<ICompany | null> => {
     const companies: ICompany[] = companiesJSON
   
-    const foundcompany = companies.find((company) => company.companyId === companyId);
+    const foundCompany = companies.find((company) => company.companyId === companyId);
     return await new Promise((resolve) => {
       setTimeout(() => {
-        resolve(foundcompany || null);
+        resolve(foundCompany || null);
       }, 200);
     });
 };
@@ -26,10 +26,10 @@ export const getcompanyById = async (companyId: string): Promise<ICompany | null
 export const getcompanyByCIF = async (CIF: string): Promise<ICompany | null> => {
     const companies: ICompany[] = companiesJSON
   
-    const foundcompany = companies.find((company) => company.CIF === CIF);
+    const foundCompany = companies.find((company) => company.CIF === CIF);
     return await new Promise((resolve) => {
       setTimeout(() => {
-        resolve(foundcompany || null);
+        resolve(foundCompany || null);
       }, 200);
     });
 };

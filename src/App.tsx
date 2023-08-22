@@ -50,14 +50,14 @@ function App() {
               path="/create-hotel"
               element={<CreateCompanyPage key="createCompanyPage" />}
             />
-            <Route element={<PrivateRoute />} path="/profile">
-              <Route element={<ProfilePage />} />
-            </Route>
-            <Route element={<PrivateRoute />} path="/profile/:id">
-              <Route element={<ProfilePage />} />
+            <Route element={<PrivateRoute />} path="/profile" />
+              
+            
+            <Route path="/profile/:id" element={<PrivateRoute />} >
+              <Route element={<ProfilePage />} path="/profile/:id"/>
             </Route>
             <Route element={<PrivateRoute />} path="/config/:id">
-              <Route element={<ConfigPage />} />
+              <Route element={<ConfigPage />} path="/config/:id"/>
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />

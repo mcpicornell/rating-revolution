@@ -107,6 +107,9 @@ const AiOutlineLoginStyled = styled(AiOutlineLogin)`
   height: 30px;
   position: relative;
   cursor: pointer;
+  @media (max-width: 900px) {
+    padding: 15px 0px 10px 0px;
+  }
 `
 
 const AiOutlineLogoutStyled = styled(AiOutlineLogout)`
@@ -115,6 +118,9 @@ const AiOutlineLogoutStyled = styled(AiOutlineLogout)`
   height: 30px;
   position: relative;
   cursor: pointer;
+  @media (max-width: 900px) {
+    padding: 15px 0px 10px 0px;
+  }
 `
 
 const Nav = styled.nav`
@@ -172,7 +178,7 @@ const UlElementsContainer = styled.ul<PropsOpenMenu>`
     border-radius: 5px;
     width: 100%;
     top: 60px;
-    visibility: ${(props) => (props.isOpen === false ? "hidden" : "visible")};
+    visibility: ${(props) => (props.isOpen === true ? "visible" : "hidden")};
     padding-left: 0px;
     z-index: 1;
   }
