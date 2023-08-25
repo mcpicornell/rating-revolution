@@ -6,6 +6,8 @@ import { ICompany, IUser } from "../features/interfaces";
 import { useState } from "react";
 import { getUserById } from "../features/users/fetchUsers";
 import { getCompanyById } from "../features/companies/fetchCompanies";
+import UserProfile from "../components/UserProfile";
+
 const ProfilePage = () => {
   const profileData = localStorage.getItem("profile");
   const parsedData = JSON.parse(profileData as string);
@@ -50,11 +52,16 @@ const ProfilePage = () => {
   if (parsedData.profile === "user") {
     return (
       <>
-        <DualNavigation
-          firstRoute={routes.firstRoute}
-          secondRoute={routes.secondRoute}
-        />
-        <Span>USER</Span>
+        <PageContainer>
+          <ContainerDualNav>
+            <DualNavigation
+              firstRoute={routes.firstRoute}
+              secondRoute={routes.secondRoute}
+            />
+          </ContainerDualNav>
+
+          <UserProfile userObj={userObj} />
+        </PageContainer>
       </>
     );
   }
