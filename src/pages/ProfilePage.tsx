@@ -1,6 +1,6 @@
 import DualNavigation from "../components/DualNavigation";
 import styled from "styled-components";
-import CompaniesDetailsPage from "./CompaniesDetailsPage";
+import { CompaniesProfile } from "../components/CompaniesProfile";
 import { useEffect } from "react";
 import { ICompany, IUser } from "../features/interfaces";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const ProfilePage = () => {
   const [companyObj, setCompanyObj] = useState<ICompany>();
   const [userObj, setUserObj] = useState<IUser>();
   const [content, setContent] = useState<JSX.Element>();
+
   const routes = {
     firstRoute: {
       routeNav: `/profile/${parsedData.id}`,
@@ -26,10 +27,7 @@ const ProfilePage = () => {
   }
   
   useEffect(() => {
-    console.log('Entering useEffect');
-
     if(parsedData.profile === "user" && !userObj){
-      console.log('Fetching user...');
       const fetchUser = async (id: string) => {
         const fetchedUser = await getUserById(id);
         if (fetchedUser) {
@@ -40,10 +38,8 @@ const ProfilePage = () => {
       fetchUser(parsedData.id)
     }
     if(parsedData.profile === "company" && !companyObj){
-      console.log('Fetching company...');
       const fetchCompany = async (id: string) => {
         const fetchedCompany = await getCompanyById(id);
-        console.log("Fetched", fetchedCompany);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);
         }
@@ -54,7 +50,6 @@ const ProfilePage = () => {
   }, [parsedData.id, userObj, parsedData.profile, companyObj]);
 
   if(parsedData.profile === "user"){
-      
       return(
         <>
           <DualNavigation firstRoute={routes.firstRoute} secondRoute={routes.secondRoute}/>
@@ -69,7 +64,14 @@ const ProfilePage = () => {
 
     return(
       <>
-      <DualNavigation firstRoute={routes.firstRoute} secondRoute={routes.secondRoute}/>
+      <div>
+        <div>
+          <DualNavigation firstRoute={routes.firstRoute} secondRoute={routes.secondRoute}/>
+        </div>
+        
+        <CompaniesProfile companyObj={companyObj}/>
+      </div>
+      
       
       </>
     )

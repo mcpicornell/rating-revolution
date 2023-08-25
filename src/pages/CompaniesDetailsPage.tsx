@@ -16,21 +16,9 @@ import { ButtonLogin } from "./LoginUserPage";
 import { useState } from "react";
 import { checkIfSingular } from "../features/functions";
 
-type PropsCompaniesDetailsPage = {
-  company?: ICompany;
-  isHidden?: boolean;
-}
-
-const CompaniesDetailsPage = ({company, isHidden}: PropsCompaniesDetailsPage) => {
+const CompaniesDetailsPage = () => {
   const location = useLocation();
-  const [companyObj, setCompanyObj] = useState<ICompany>();
-
-  if(company){
-    setCompanyObj(company);
-  }
-  else{
-    setCompanyObj(location.state as ICompany);
-  }
+ const companyObj = location.state
 
   const [rating, setRating] = useState(0);
 
