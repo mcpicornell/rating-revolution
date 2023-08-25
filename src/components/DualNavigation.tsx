@@ -59,6 +59,8 @@ const NavLinkMenu = styled(NavLink)`
   padding: 15px;
   border-radius: 10px;
   transition: background-color 0.3s, color 0.3s;
+  background-color: rgba(172, 172, 172, 0.1);
+  margin: 5px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }

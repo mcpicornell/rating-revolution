@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import "swiper/css";
 import Slider from "../components/Slider";
-import { ICompany } from "../features/interfaces";
 import StarRating from "../components/StarRating";
 import { getNumberElementsInArray } from "../features/functions";
 import { addSpacesToPhoneNumber } from "../features/functions";
@@ -15,12 +14,19 @@ import HoverStarRating from "../components/HoverStarRating";
 import { ButtonLogin } from "./LoginUserPage";
 import { useState } from "react";
 import { checkIfSingular } from "../features/functions";
+import { isLoggedUserOrCompany } from "../features/functions";
+
+type PropsMainComment = {
+  isLogged: boolean;
+};
 
 const CompaniesDetailsPage = () => {
   const location = useLocation();
- const companyObj = location.state
+  const companyObj = location.state;
 
   const [rating, setRating] = useState(0);
+
+  const isLogged = isLoggedUserOrCompany("company");
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -99,7 +105,7 @@ const CompaniesDetailsPage = () => {
       </HeaderContainer>
 
       <SliderContainer>
-        <Slider />
+        <Slider companyObj={companyObj} />
       </SliderContainer>
 
       <CardsContainer>
@@ -125,7 +131,7 @@ const CompaniesDetailsPage = () => {
         </CardInfoContainer>
       </CardsContainer>
       <CommentsContainer>
-        <MainCommentContainer>
+        <MainCommentContainer isLogged={isLogged}>
           <CommentAndStarsContainer>
             <AiOutlineUserStyled />
             <HoverStarRating onChangeRating={handleRatingChange} />
@@ -294,7 +300,7 @@ const CommentsContainer = styled.div`
   flex-direction: column;
 `;
 
-const MainCommentContainer = styled.div`
+const MainCommentContainer = styled.div<PropsMainComment>`
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(224, 224, 224, 1);
@@ -302,8 +308,9 @@ const MainCommentContainer = styled.div`
   margin: 0 auto;
   width: 60%;
   padding: 20px 20px 20px 20px;
-  position: relative;
+  position: ${props => props.isLogged ? "absolute" : "relative"};
   height: 16vh;
+  visibility: ${props => props.isLogged ? "hidden" : "visible"};
 `;
 
 const CommentAndStarsContainer = styled.div`

@@ -12,10 +12,15 @@ import { checkIfSingular, getRandomIndex } from "../features/functions";
 import { getNumberElementsInArray } from "../features/functions";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
+import { isLoggedUserOrCompany } from "../features/functions";
 
 type ReviewProps = {
   reviewObj: IReview;
 };
+
+type PropsLikeIcon = {
+  isCompanyLogged: boolean;
+}
 
 const Review: FC<ReviewProps> = ({ reviewObj }) => {
   const [companyObj, setCompanyObj] = useState<ICompany | null>(null);
@@ -23,6 +28,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
   const location = useLocation();
   const date = new Date(reviewObj!.date).toDateString();
   const nav = useNavigate();
+  const isCompanyLogged = isLoggedUserOrCompany("company");
 
   const navToCompaniesDetailsOnClick = () => {
     if (reviewObj) {
@@ -98,16 +104,54 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
             <ReviewText>{reviewObj.reviewText}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
-            <SlLikeStyled />
+            <SlLikeStyled isCompanyLogged={isCompanyLogged}/>
             <NumberLikes>{reviewObj.likes}</NumberLikes>
-            <SlDislikeStyled />
+            <SlDislikeStyled isCompanyLogged={isCompanyLogged}/>
+            <NumberLikes>{reviewObj.dislikes}</NumberLikes>
+          </LikeIconsContainer>
+        </ContainerReview>
+      );
+
+    case `/profile/${companyObj?.companyId}`:
+      const userTotalReviewsProfile = getNumberElementsInArray(user?.reviews);
+      const reviewStringProfile = checkIfSingular(userTotalReviewsProfile);
+
+      return (
+        <ContainerReview>
+          <UserContainer>
+            <UserPicture src={user?.profilePicture} />
+            <UserDetailsContainer>
+              <SpanName>{user?.nickName}</SpanName>
+              <UserNumberReviewsContainer>
+                <SpanGreyNumber>{userTotalReviewsProfile}</SpanGreyNumber>
+                <SpanGreyNumber>{reviewStringProfile}</SpanGreyNumber>
+              </UserNumberReviewsContainer>
+            </UserDetailsContainer>
+          </UserContainer>
+
+          <ContainerContent>
+            <RatingDateContainer>
+              <StarRating rating={reviewObj!.rating} />
+              <SpanGreyDate>{date}</SpanGreyDate>
+            </RatingDateContainer>
+            <TitleReview>{reviewObj.reviewTitle}</TitleReview>
+            <ReviewText>{reviewObj.reviewText}</ReviewText>
+          </ContainerContent>
+          <LikeIconsContainer>
+            <SlLikeProfile />
+            <NumberLikes>{reviewObj.likes}</NumberLikes>
+            <SlDislikeProfile />
             <NumberLikes>{reviewObj.dislikes}</NumberLikes>
           </LikeIconsContainer>
         </ContainerReview>
       );
 
     default:
-      return null;
+      return (
+        <>
+          <h3>Review cannot be render</h3>
+        </>
+      );
   }
 };
 
@@ -179,7 +223,8 @@ const ContainerReview = styled.div`
   border-radius: 12px;
   width: 65%;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   padding-right: 10px;
   padding-bottom: 10px;
   position: relative;
@@ -240,18 +285,25 @@ const LikeIconsContainer = styled.div`
   align-items: center;
 `;
 
-const SlLikeStyled = styled(SlLike)`
-  cursor: pointer;
+const SlLikeStyled = styled(SlLike)<PropsLikeIcon>`
+  cursor: ${props => props.isCompanyLogged ? "auto" : "pointer"};
   &:hover {
-    color: rgb(0, 255, 0);
+    color: ${props => props.isCompanyLogged ? "none" : "rgb(0, 255, 0)"};
   }
   margin-right: 10px;
 `;
-const SlDislikeStyled = styled(SlDislike)`
-  cursor: pointer;
+const SlDislikeStyled = styled(SlDislike)<PropsLikeIcon>`
+  cursor: ${props => props.isCompanyLogged ? "auto" : "pointer"};
   &:hover {
-    color: red;
+    color: ${props => props.isCompanyLogged ? "none" : "red"};
   }
+  margin: 0px 10px 0px 20px;
+`;
+
+const SlLikeProfile = styled(SlLike)`
+  margin-right: 10px;
+`;
+const SlDislikeProfile = styled(SlDislike)`
   margin: 0px 10px 0px 20px;
 `;
 
