@@ -1,130 +1,38 @@
 [
     {
-      "userId": "user1",
+      "userId": 1,
       "name": "Thomas Anderson",
       "nickName": "neo",
       "email": "neo@neo.com",
       "password": "neo",
       "profilePicture": "https://i.pinimg.com/236x/31/e1/b0/31e1b00743eaeff77c7145ef403572fb--fiction-movies-science-fiction.jpg",
-      "reviews": [
-        {
-          "reviewId": "review1",
-          "companyId": "company1",
-          "rating": 4,
-          "userId": "user1",
-          "reviewTitle": "Great product",
-          "reviewText": "I loved using their product. Highly recommended.",
-          "date": "2023-07-31T12:34:56Z",
-          "likes": 5,
-          "dislikes": 1
-        },
-        {
-          "reviewId": "review2",
-          "companyId": "company2",
-          "rating": 3,
-          "userId": "user1",
-          "reviewTitle": "Good service",
-          "reviewText": "Their service was decent. Could be improved.",
-          "date": "2023-07-30T10:00:00Z",
-          "likes": 5,
-          "dislikes": 1
-        }
-      ]
+      "reviewsCount": 2
     },
     {
-      "userId": "user2",
+      "userId": 2,
       "name": "Carrie-Anne Moss",
       "nickName": "Trinity",
       "email": "trinityh@trinityh.com",
       "password": "secret123",
       "profilePicture": "https://smoda.elpais.com/wp-content/uploads/2021/12/matrix-1200x702.jpeg",
-      "reviews": [
-        {
-          "reviewId": "review3",
-          "companyId": "company1",
-          "rating": 5,
-          "userId": "user2",
-          "reviewTitle": "Amazing product",
-          "reviewText": "The product exceeded my expectations. Absolutely loved it!",
-          "date": "2023-07-29T15:45:00Z",
-          "likes": 5,
-          "dislikes": 1
-        },
-        {
-          "reviewId": "review4",
-          "companyId": "company3",
-          "rating": 2,
-          "userId": "user2",
-          "reviewTitle": "Disappointing experience",
-          "reviewText": "Not satisfied with their service. Needs improvement.",
-          "date": "2023-07-28T09:30:00Z",
-          "likes": 5,
-          "dislikes": 1
-        }
-      ]
+      "reviewsCount": 2
     },
     {
-      "userId": "user3",
+      "userId": 3,
       "name": "Laurence Fishburne",
       "email": "morpheus@morpheus.com",
       "nickName": "morpheus",
       "password": "password123",
       "profilePicture": "https://www.looper.com/img/gallery/heres-why-we-didnt-see-laurence-fishburnes-morpheus-in-the-matrix-resurrections/intro-1640184659.jpg",
-      "reviews": [
-        {
-          "reviewId": "review3",
-          "companyId": "company1",
-          "rating": 4,
-          "userId": "user3",
-          "reviewTitle": "Great product",
-          "reviewText": "I loved using their product. Highly recommended.",
-          "date": "2023-07-31T12:34:56Z",
-          "likes": 5,
-          "dislikes": 1
-        },
-        {
-          "reviewId": "review2",
-          "companyId": "company2",
-          "rating": 3,
-          "userId": "user1",
-          "reviewTitle": "Good service",
-          "reviewText": "Their service was decent. Could be improved.",
-          "date": "2023-07-30T10:00:00Z",
-          "likes": 5,
-          "dislikes": 1
-        }
-      ]
+      "reviewsCount": 0
     },
     {
-      "userId": "user4",
+      "userId": 4,
       "name": "Jada Pinkett Smith",
       "nickName": "niobe",
       "email": "niobe@niobe.com",
       "password": "secret123",
       "profilePicture": "https://upload.wikimedia.org/wikipedia/en/4/44/MatrixNiobe.jpg",
-      "reviews": [
-        {
-          "reviewId": "review3",
-          "companyId": "company1",
-          "rating": 5,
-          "userId": "user4",
-          "reviewTitle": "Amazing product",
-          "reviewText": "The product exceeded my expectations. Absolutely loved it!",
-          "date": "2023-07-29T15:45:00Z",
-          "likes": 5,
-          "dislikes": 1
-        },
-        {
-          "reviewId": "review4",
-          "companyId": "company3",
-          "rating": 2,
-          "userId": "user2",
-          "reviewTitle": "Disappointing experience",
-          "reviewText": "Not satisfied with their service. Needs improvement.",
-          "date": "2023-07-28T09:30:00Z",
-          "likes": 5,
-          "dislikes": 1
-        }
-      ]
+      "reviewsCount": 0
     }
   ]

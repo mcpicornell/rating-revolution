@@ -9,10 +9,10 @@ import { ICompany, IUser } from "../features/interfaces";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { checkIfSingular, getRandomIndex } from "../features/functions";
-import { getNumberElementsInArray } from "../features/functions";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { isLoggedUserOrCompany } from "../features/functions";
+import { getCompaniesPhotosById } from "../features/companiesPhotos/fetchCompaniesPhotos";
 
 type ReviewProps = {
   reviewObj: IReview;
@@ -24,6 +24,7 @@ type PropsLikeIcon = {
 
 const Review: FC<ReviewProps> = ({ reviewObj }) => {
   const [companyObj, setCompanyObj] = useState<ICompany | null>(null);
+  const [companyPhotos, setCompanyPhotos] = useState<string[] | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
   const location = useLocation();
   const date = new Date(reviewObj!.date).toDateString();
@@ -41,6 +42,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
       const fetchedCompany = await getCompanyById(reviewObj!.companyId);
       setCompanyObj(fetchedCompany);
     };
+    
 
     if (!companyObj) {
       fetchCompany();
@@ -58,12 +60,25 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
     }
   }, [user, reviewObj]);
 
+  useEffect(() => {
+    const fetchCompaniesPhotos = async () => {
+      const fetchedCompaniesPhotos = await getCompaniesPhotosById(reviewObj!.companyId);
+      setCompanyPhotos(fetchedCompaniesPhotos)
+    }
+
+    if (!companyPhotos) {
+      fetchCompaniesPhotos();
+    }
+    
+  }, [companyPhotos, reviewObj]);
+
+
   switch (location.pathname) {
     case "/":
       return (
         <ContainerHome onClick={navToCompaniesDetailsOnClick}>
           <CompanyPicture
-            src={companyObj?.photos[getRandomIndex(companyObj?.photos)]}
+            src={companyPhotos![getRandomIndex(companyPhotos!)]}
           />
           <ContainerContent>
             <ContainerTopBottom>
@@ -80,7 +95,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
         </ContainerHome>
       );
     case `/hotels/${companyObj?.companyId}`:
-      const userTotalReviews = getNumberElementsInArray(user?.reviews);
+      const userTotalReviews = user!.reviewsCount;
       const reviewString = checkIfSingular(userTotalReviews);
       return (
         <ContainerReview>
@@ -113,7 +128,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
       );
 
     case `/profile/${companyObj?.companyId}`:
-      const userTotalReviewsProfile = getNumberElementsInArray(user?.reviews);
+      const userTotalReviewsProfile = user!.reviewsCount;
       const reviewStringProfile = checkIfSingular(userTotalReviewsProfile);
 
       return (

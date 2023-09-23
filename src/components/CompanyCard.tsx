@@ -6,6 +6,8 @@ import StarRating from "./StarRating";
 import { getNumberElementsInArray } from "../features/functions";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { getReviewsByCompanyId } from "../features/reviews/fetchReviews";
+import { getCompaniesPhotosById } from "../features/companiesPhotos/fetchCompaniesPhotos";
 
 type CompanyProps = {
   companyObj: ICompany;
@@ -14,7 +16,31 @@ type CompanyProps = {
 const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
   const nav = useNavigate();
   const [users, setUsers] = useState<IUser[]>([]);
-  const reviewsArrCopy = [...companyObj!.reviews];
+  const [reviewsData, setReviews] = useState<IReview[] | null>(null);
+  const [companyPhotos, setCompanyPhotos] = useState<string[] | null>(null);
+  useEffect(() => {
+    const fetchCompanyReviews = async () => {
+      const fetchedCompanyReviews = await getReviewsByCompanyId(companyObj!.companyId);
+      setReviews(fetchedCompanyReviews)
+    }
+
+    if (!reviewsData) {
+      fetchCompanyReviews();
+    }
+    
+  }, [companyObj, reviewsData]);
+
+  useEffect(() => {
+    const fetchCompaniesPhotos = async () => {
+      const fetchedCompaniesPhotos = await getCompaniesPhotosById(companyObj!.companyId);
+      setCompanyPhotos(fetchedCompaniesPhotos)
+    }
+
+    if (!companyPhotos) {
+      fetchCompaniesPhotos();
+    }
+    
+  }, [companyPhotos, companyObj]);
 
   const getLastThreeReviews = (arrayReviews: IReview[]) => {
     const lastReviews = arrayReviews.sort(
@@ -23,7 +49,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     let lastThreeReviews = lastReviews.slice(0, 3);
     return lastThreeReviews;
   };
-  const reviews = getLastThreeReviews(reviewsArrCopy);
+  const reviews = getLastThreeReviews(reviewsData!);
 
   const navToCompaniesDetailsOnClick = () => {
     if (companyObj) {
@@ -39,7 +65,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
       }
 
       const fetchUsers = async () => {
-        const fetchUser = async (id: string) => {
+        const fetchUser = async (id: number) => {
           const fetchedUser = await getUserById(id);
           if (fetchedUser) {
             return fetchedUser;
@@ -50,7 +76,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
         const usersArray: IUser[] = [];
         for (const userId in uniqueUserIds) {
           if (uniqueUserIds.hasOwnProperty(userId)) {
-            const user = await fetchUser(userId);
+            const user = await fetchUser(Number(userId));
             if (user) {
               usersArray.push(user);
             }
@@ -82,14 +108,14 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
   return (
     <CardContainer onClick={navToCompaniesDetailsOnClick}>
       <CompanyName>{companyObj?.companyName}</CompanyName>
-      <CompanyPicture src={companyObj?.photos[0]} />
+      <CompanyPicture src={companyPhotos![0]} />
       <StarRating rating={companyObj!.rating} />
       <ContainerBottom>
         <ContainerUsers>{userPicture}</ContainerUsers>
         <ContainerInfoReviews>
           <CommentSvg />
           <CommentInfo>
-            {getNumberElementsInArray(companyObj!.reviews)}
+            {getNumberElementsInArray(reviewsData)}
           </CommentInfo>
         </ContainerInfoReviews>
       </ContainerBottom>

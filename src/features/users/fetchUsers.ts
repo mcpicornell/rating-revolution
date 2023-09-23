@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk<IUser[], void>('users/fetchUsers', as
     })
 });
 
-export const getUserById = async (userId: string): Promise<IUser | null> => {
+export const getUserById = async (userId: number): Promise<IUser | null> => {
     const users: IUser[] = usersJSON
   
     const foundUser = users.find((user) => user.userId === userId);

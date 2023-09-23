@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (parsedData.profile === "user" && !userObj) {
-      const fetchUser = async (id: string) => {
+      const fetchUser = async (id: number) => {
         const fetchedUser = await getUserById(id);
         if (fetchedUser) {
           setUserObj(fetchedUser);
@@ -38,7 +38,7 @@ const ProfilePage = () => {
       fetchUser(parsedData.id);
     }
     if (parsedData.profile === "company" && !companyObj) {
-      const fetchCompany = async (id: string) => {
+      const fetchCompany = async (id: number) => {
         const fetchedCompany = await getCompanyById(id);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);

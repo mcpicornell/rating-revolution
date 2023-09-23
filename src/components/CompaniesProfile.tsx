@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "swiper/css";
 import Slider from "../components/Slider";
-import { ICompany } from "../features/interfaces";
+import { ICompany, IReview } from "../features/interfaces";
 import StarRating from "../components/StarRating";
 import { getNumberElementsInArray } from "../features/functions";
 import { addSpacesToPhoneNumber } from "../features/functions";
@@ -10,23 +10,40 @@ import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { checkIfSingular } from "../features/functions";
+import { getReviewsByCompanyId } from "../features/reviews/fetchReviews";
+import { useState, useEffect } from "react";
 
 type PropsCompanyProfile = {
   companyObj?: ICompany;
 };
 
 export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
+
+
+
+  const [reviews, setReviews] = useState<IReview[] | null>(null);
   let cardRating: JSX.Element[] = [];
 
-  const reviewData = [...companyObj!.reviews];
-  const reviewDataOrdered = reviewData.sort(
+  useEffect(() => {
+    const fetchCompanyReviews = async () => {
+      const fetchedCompanyReviews = await getReviewsByCompanyId(companyObj!.companyId);
+      setReviews(fetchedCompanyReviews)
+    }
+
+    if (!reviews) {
+      fetchCompanyReviews();
+    }
+    
+  }, [companyObj, reviews]);
+
+  const reviewDataOrdered = reviews?.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   const numberReviewsByRating = (number: number) => {
     let numberReviews = 0;
-    for (let i = 0; i < companyObj!.reviews.length; i++) {
-      if (companyObj!.reviews[i].rating === number) {
+    for (let i = 0; i < reviews!.length; i++) {
+      if (reviews![i].rating === number) {
         numberReviews++;
       }
     }
@@ -36,12 +53,14 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
     companyObj!.contactNumber
   );
-  const numberReviews = getNumberElementsInArray(companyObj!.reviews);
+  const numberReviews = reviews?.length;
   const reviewString = checkIfSingular(
-    getNumberElementsInArray(companyObj!.reviews)
+    reviews!.length
   );
 
-  if (companyObj?.reviews) {
+
+
+  if (reviews) {
     for (let i = 5; i > 0; i--) {
       cardRating.push(
         <CardStarRating>
@@ -110,7 +129,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
         </CardInfoContainer>
       </CardsContainer>
       <CommentsContainer>
-        {reviewDataOrdered.map((reviewObj) => (
+        {reviewDataOrdered?.map((reviewObj) => (
           <Review key={reviewObj.reviewId} reviewObj={reviewObj} />
         ))}
       </CommentsContainer>
