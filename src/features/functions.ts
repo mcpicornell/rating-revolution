@@ -13,12 +13,10 @@ export const getNumberElementsInArray = (array: any) => {
 export const addSpacesToPhoneNumber = (phoneNumber: string) => {
   const cleanPhoneNumber = phoneNumber.replace(/\D/g, "");
 
-  const formattedPhoneNumber = cleanPhoneNumber.replace(
+  return cleanPhoneNumber.replace(
     /(\d{2})(\d{3})(\d{3})(\d{3})/,
     "+$1 $2 $3 $4"
   );
-
-  return formattedPhoneNumber;
 };
 
 export const checkIfSingular = (number: number) => {
@@ -30,9 +28,9 @@ export const checkIfSingular = (number: number) => {
 
 export const isLoggedUserOrCompany = (userOrCompanyString: string) => {
   const profileData = localStorage.getItem("profile");
-  const parsedData = JSON.parse(profileData as string);
-  if (parsedData.profile === userOrCompanyString) {
-    return true;
+  if (profileData){
+      const parsedData = JSON.parse(profileData as string);
+      return parsedData.profile === userOrCompanyString;
   }
   return false;
 };
@@ -40,8 +38,5 @@ export const isLoggedUserOrCompany = (userOrCompanyString: string) => {
 export const isSameIdInPagePageAndLogged = (id: string) => {
   const profileData = localStorage.getItem("profile");
   const parsedData = JSON.parse(profileData as string);
-  if (parsedData.id === id) {
-    return true;
-  }
-  return false;
+  return parsedData.id === id;
 };

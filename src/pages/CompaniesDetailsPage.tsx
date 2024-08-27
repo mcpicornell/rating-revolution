@@ -76,6 +76,8 @@ const CompaniesDetailsPage = () => {
     }
   }
 
+  console.log(companyObj)
+
   return (
     <PageContainer>
       <HeaderContainer>
@@ -103,11 +105,9 @@ const CompaniesDetailsPage = () => {
           </SubHeaderElementContainer>
         </SubHeader>
       </HeaderContainer>
-
       <SliderContainer>
         <Slider companyObj={companyObj} />
       </SliderContainer>
-
       <CardsContainer>
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
@@ -156,10 +156,11 @@ const PageContainer = styled.div`
 
 const SliderContainer = styled.div`
   margin: 0 auto;
-  width: 800px;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 900px;
 `;
 
 const HeaderContainer = styled.div`

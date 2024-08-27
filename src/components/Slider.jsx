@@ -13,6 +13,7 @@ const Slider = ({ companyObj }) => {
       slidesPerView={1}
       navigation
       pagination={{ clickable: true }}
+      nagitation
       loop={true}
     >
       <SwiperSlide>
@@ -33,10 +34,12 @@ const ImgSlider = styled.img`
   width: 100%;
   border-radius: 5px;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
+  z-index: -1;
 `;
 
 const CustomSwiper = styled(Swiper)`
   margin-top: 10px;
+  width: 100%;
 
   .swiper-button-prev {
     background: rgba(0, 0, 0, 0.7);
@@ -52,5 +55,10 @@ const CustomSwiper = styled(Swiper)`
     padding: 10px 5px 10px 10px;
     color: #a2bcdd;
     visibility: visible;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 18px; // Adjust as needed
   }
 `;
