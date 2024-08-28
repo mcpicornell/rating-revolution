@@ -1,8 +1,8 @@
-export const getRandomIndex = (array: string[]) => {
+export const getRandomIndex = (array) => {
   return Math.floor(Math.random() * array.length);
 };
 
-export const getNumberElementsInArray = (array: any) => {
+export const getNumberElementsInArray = (array) => {
   let elements = 0;
   for (let i = 0; i < array.length; i++) {
     elements++;
@@ -10,7 +10,7 @@ export const getNumberElementsInArray = (array: any) => {
   return elements;
 };
 
-export const addSpacesToPhoneNumber = (phoneNumber: string) => {
+export const addSpacesToPhoneNumber = (phoneNumber) => {
   const cleanPhoneNumber = phoneNumber.replace(/\D/g, "");
 
   return cleanPhoneNumber.replace(
@@ -19,24 +19,28 @@ export const addSpacesToPhoneNumber = (phoneNumber: string) => {
   );
 };
 
-export const checkIfSingular = (number: number) => {
+export const checkIfSingular = (number) => {
   if (number === 1) {
     return "Review";
   }
   return "Reviews";
 };
 
-export const isLoggedUserOrCompany = (userOrCompanyString: string) => {
+export const isLoggedUserOrCompany = (userOrCompanyString) => {
   const profileData = localStorage.getItem("profile");
   if (profileData){
-      const parsedData = JSON.parse(profileData as string);
+      const parsedData = JSON.parse(profileData);
       return parsedData.profile === userOrCompanyString;
   }
   return false;
 };
 
-export const isSameIdInPagePageAndLogged = (id: string) => {
+export const isSameIdInPagePageAndLogged = (id) => {
   const profileData = localStorage.getItem("profile");
-  const parsedData = JSON.parse(profileData as string);
+  const parsedData = JSON.parse(profileData);
   return parsedData.id === id;
+};
+
+export const formatDate = (isoDate) => {
+    return isoDate.split('T')[0];
 };

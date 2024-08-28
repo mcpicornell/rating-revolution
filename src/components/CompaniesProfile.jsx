@@ -1,32 +1,28 @@
 import styled from "styled-components";
 import "swiper/css";
 import Slider from "../components/Slider";
-import { ICompany } from "../features/interfaces";
-import StarRating from "../components/StarRating";
+import StarRating from "./StarRating";
 import { getNumberElementsInArray } from "../features/functions";
 import { addSpacesToPhoneNumber } from "../features/functions";
-import Review from "../components/Review";
+import Review from "./Review";
 import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { checkIfSingular } from "../features/functions";
 
-type PropsCompanyProfile = {
-  companyObj?: ICompany;
-};
 
-export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
-  let cardRating: JSX.Element[] = [];
+export const CompaniesProfile = ({ companyObj }) => {
+  let cardRating = [];
 
-  const reviewData = [...companyObj!.reviews];
+  const reviewData = [...companyObj.reviews];
   const reviewDataOrdered = reviewData.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const numberReviewsByRating = (number: number) => {
+  const numberReviewsByRating = (number) => {
     let numberReviews = 0;
-    for (let i = 0; i < companyObj!.reviews.length; i++) {
-      if (companyObj!.reviews[i].rating === number) {
+    for (let i = 0; i < companyObj.reviews.length; i++) {
+      if (companyObj.reviews[i].rating === number) {
         numberReviews++;
       }
     }
@@ -34,11 +30,11 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
   };
 
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj!.phone
+    companyObj.phone
   );
-  const numberReviews = getNumberElementsInArray(companyObj!.reviews);
+  const numberReviews = getNumberElementsInArray(companyObj.reviews);
   const reviewString = checkIfSingular(
-    getNumberElementsInArray(companyObj!.reviews)
+    getNumberElementsInArray(companyObj.reviews)
   );
 
   if (companyObj?.reviews) {
@@ -61,7 +57,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
         <Header>
           <Title>{companyObj?.name}</Title>
           <StarInfoContainer>
-            <StarRating rating={companyObj!.rating} />
+            <StarRating rating={companyObj.rating} />
             <ReviewSpan>
               {numberReviews} {reviewString}
             </ReviewSpan>

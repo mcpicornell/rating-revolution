@@ -1,19 +1,17 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ICompany } from '../interfaces';
 import companiesJSON from '../../data/database/companies.json'
 
 
 
-export const fetchCompanies = createAsyncThunk<ICompany[], void>('companies/fetchCompanies', async () => {
+export const fetchCompanies = async (setCompanies) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(companiesJSON)
         }, 200)
     })
-});
+};
 
-export const getCompanyById = async (id: string): Promise<ICompany | null> => {
-    const companies: ICompany[] = companiesJSON
+export const getCompanyById = async (id) => {
+    const companies = companiesJSON
   
     const foundCompany = companies.find((company) => company.id === id);
     return await new Promise((resolve) => {
@@ -23,8 +21,8 @@ export const getCompanyById = async (id: string): Promise<ICompany | null> => {
     });
 };
 
-export const getcompanyByCIF = async (CIF: string): Promise<ICompany | null> => {
-    const companies: ICompany[] = companiesJSON
+export const getcompanyByCIF = async (CIF) => {
+    const companies = companiesJSON
   
     const foundCompany = companies.find((company) => company.CIF === CIF);
     return await new Promise((resolve) => {
@@ -34,18 +32,18 @@ export const getcompanyByCIF = async (CIF: string): Promise<ICompany | null> => 
     });
 };
 
-export const addCompany = createAsyncThunk<ICompany, ICompany>('companies/addCompany', async (companyObj) => {
+export const addCompany = async (companyObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(companyObj)
         }, 200)
     })
-});
+};
 
-export const deleteCompany = createAsyncThunk<ICompany, ICompany>('companies/deleteCompany', async (companyObj) => {
+export const deleteCompany = async (companyObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(companyObj)
         }, 200)
     })
-});
+};

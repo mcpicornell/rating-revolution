@@ -1,22 +1,16 @@
 import { getUserById } from "../features/users/fetchUsers";
-import { ICompany, IReview, IUser } from "../features/interfaces";
 import { FC, useEffect, useState } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import StarRating from "./StarRating";
-import { getNumberElementsInArray } from "../features/functions";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-type CompanyProps = {
-  companyObj: ICompany;
-};
-
-const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
+const CompanyCard = ({ companyObj }) => {
   const nav = useNavigate();
-  const [users, setUsers] = useState<IUser[]>([]);
-  const reviewsArrCopy = [...companyObj!.reviews];
+  const [users, setUsers] = useState([]);
+  const reviewsArrCopy = [...companyObj.reviews];
 
-  const getLastThreeReviews = (arrayReviews: IReview[]) => {
+  const getLastThreeReviews = (arrayReviews) => {
     const lastReviews = arrayReviews.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
@@ -32,13 +26,13 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const uniqueUserIds: { [key: string]: boolean } = {};
+      const uniqueUserIds  = {};
       for (let i = 0; i < reviews.length; i++) {
         uniqueUserIds[reviews[i].id] = true;
       }
 
       const fetchUsers = async () => {
-        const fetchUser = async (id: string) => {
+        const fetchUser = async (id) => {
           const fetchedUser = await getUserById(id);
           if (fetchedUser) {
             return fetchedUser;
@@ -46,7 +40,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
           return null;
         };
 
-        const usersArray: IUser[] = [];
+        const usersArray = [];
         for (const userId in uniqueUserIds) {
           if (uniqueUserIds.hasOwnProperty(userId)) {
             const user = await fetchUser(userId);
@@ -63,7 +57,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     fetchAllUsers();
   }, [reviews]);
 
-  let userPicture: JSX.Element[] = [];
+  let userPicture = [];
 
   users.forEach((user) => {
     const profilePictureObj = {
@@ -82,7 +76,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     <CardContainer onClick={navToCompaniesDetailsOnClick}>
       <CompanyName>{companyObj?.name}</CompanyName>
       <CompanyPicture src={companyObj?.photos[0]} />
-      <StarRating rating={companyObj!.rating} />
+      <StarRating rating={companyObj.rating} />
       <ContainerBottom>
         <ContainerUsers>{userPicture}</ContainerUsers>
         <ContainerInfoReviews>

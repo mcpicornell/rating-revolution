@@ -8,10 +8,6 @@ import { useState } from "react";
 import { isLoggedIn } from "./PrivateRoute";
 import { useNavigate } from "react-router-dom";
 
-interface PropsOpenMenu {
-  isOpen: boolean;
-}
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const nav = useNavigate();
@@ -23,14 +19,14 @@ const Navbar = () => {
   }
   const profileData = localStorage.getItem("profile");
 
-  const navToProfile = (profileData: string) => {
+  const navToProfile = (profileData) => {
     if (profileData !== null) {
       const parsedData = JSON.parse(profileData);
       return `/profile/${parsedData.id}`;
     }
     return "/profile"
   }
-  const routeProfile = navToProfile(profileData as string);
+  const routeProfile = navToProfile(profileData);
 
   const navToLogin = () => {
     if (profileData !== null) {
@@ -163,7 +159,7 @@ const Subtitle = styled.span`
   line-height: 27px;
 `;
 
-const UlElementsContainer = styled.ul<PropsOpenMenu>`
+const UlElementsContainer = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-around;

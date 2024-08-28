@@ -1,25 +1,27 @@
 
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { fetchCompanies } from "../features/companies/fetchCompanies";
 import HotelCard from "../components/CompanyCard";
 import styled from "styled-components";
 
 const CompaniesPage = () => {
 
-  useEffect(() => {
-    if (companiesStatus === "idle") {
-      dispatch(fetchCompanies());
-    }
-  }, [companiesData, companiesStatus, companiesError, dispatch]);
-  let content: JSX.Element[] = [];
+  const [companies, setCompanies] = useState()
 
-  if (companiesData) {
-    const companiesDataCopy = [...companiesData];
+  useEffect(() => {
+    if (!companies) {
+      setCompanies(fetchCompanies())
+    }
+  }, [companies]);
+  let content = [];
+
+  if (companies) {
+    const companiesDataCopy = [...companies];
     companiesDataCopy.forEach((companyObj) => {
       if (companyObj) {
         content.push(
           <>
-            <HotelCard key={companyObj.companyId} companyObj={companyObj} />
+            <HotelCard key={companyObj.id} companyObj={companyObj} />
           </>
         );
       }

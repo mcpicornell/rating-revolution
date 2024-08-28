@@ -19,7 +19,6 @@ import styled from "styled-components";
 import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getcompanyByCIF } from "../features/companies/fetchCompanies";
-import { ICompany } from "../features/interfaces";
 
 const LoginCompanyPage = () => {
   const firstRoute = {
@@ -32,20 +31,20 @@ const LoginCompanyPage = () => {
     routeString: "Hotel",
   };
   const nav = useNavigate();
-  const [CIF, setCIF] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [companyObj, setCompanyObj] = useState<ICompany>();
+  const [CIF, setCIF] = useState();
+  const [password, setPassword] = useState();
+  const [companyObj, setCompanyObj] = useState();
 
-  const handleInputCIFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputCIFChange = (event) => {
     setCIF(event?.target.value)
   };
-  const handleInputPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputPasswordChange = (event) => {
     setPassword(event?.target.value)
   };
 
   useEffect(() => {
     if(!companyObj){
-      const fetchCompany = async (CIF: string) => {
+      const fetchCompany = async (CIF) => {
         const fetchedCompany = await getcompanyByCIF(CIF);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);
@@ -58,7 +57,7 @@ const LoginCompanyPage = () => {
     }
   }, [CIF, companyObj]);
   
-  const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault()
     if(CIF === "B01" && password === "1234") {
       localStorage.setItem("auth", "true");

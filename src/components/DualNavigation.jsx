@@ -1,18 +1,8 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-type PropsNavigation = {
-  firstRoute: {
-    routeNav: string,
-    routeString: string
-  },
-  secondRoute: {
-    routeNav: string,
-    routeString: string
-  }
-}
 
-const DualNavigation = ({firstRoute, secondRoute}: PropsNavigation) => {
+const DualNavigation = ({firstRoute, secondRoute}) => {
   return (
     <Container>
       <UserContainer>

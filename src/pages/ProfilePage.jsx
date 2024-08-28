@@ -2,7 +2,6 @@ import DualNavigation from "../components/DualNavigation";
 import styled from "styled-components";
 import { CompaniesProfile } from "../components/CompaniesProfile";
 import { useEffect } from "react";
-import { ICompany, IUser } from "../features/interfaces";
 import { useState } from "react";
 import { getUserById } from "../features/users/fetchUsers";
 import { getCompanyById } from "../features/companies/fetchCompanies";
@@ -10,10 +9,10 @@ import UserProfile from "../components/UserProfile";
 
 const ProfilePage = () => {
   const profileData = localStorage.getItem("profile");
-  const parsedData = JSON.parse(profileData as string);
-  const [companyObj, setCompanyObj] = useState<ICompany>();
-  const [userObj, setUserObj] = useState<IUser>();
-  const [content, setContent] = useState<JSX.Element>();
+  const parsedData = JSON.parse(profileData);
+  const [companyObj, setCompanyObj] = useState();
+  const [userObj, setUserObj] = useState();
+  const [content, setContent] = useState();
 
   const routes = {
     firstRoute: {
@@ -28,7 +27,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (parsedData.profile === "user" && !userObj) {
-      const fetchUser = async (id: string) => {
+      const fetchUser = async (id) => {
         const fetchedUser = await getUserById(id);
         if (fetchedUser) {
           setUserObj(fetchedUser);
@@ -38,7 +37,7 @@ const ProfilePage = () => {
       fetchUser(parsedData.id);
     }
     if (parsedData.profile === "company" && !companyObj) {
-      const fetchCompany = async (id: string) => {
+      const fetchCompany = async (id) => {
         const fetchedCompany = await getCompanyById(id);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);

@@ -5,10 +5,8 @@ import { IoMdLock } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import DualNavigation from "../components/DualNavigation";
 import { useNavigate } from "react-router-dom";
-import { IUser } from "../features/interfaces";
 import { getUserByEmail } from "../features/users/fetchUsers";
-import React, { useState, FormEvent, useEffect } from "react";
-import { request } from '../features/utils';
+import React, { useState, useEffect } from "react";
 
 const LoginUserPage = () => {
   const nav = useNavigate();
@@ -21,18 +19,18 @@ const LoginUserPage = () => {
     routeNav: "/login-hotel",
     routeString: "Hotel"
   }
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [userObj, setUserObj] = useState<IUser>();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [userObj, setUserObj] = useState();
 
-  const handleInputEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputEmailChange = (event) => {
     setEmail(event?.target.value)
   };
-  const handleInputPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputPasswordChange = (event) => {
     setPassword(event?.target.value)
   };
   
-  const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
     if(email === "neo@neo.com" && password === "neo") {
       
@@ -47,7 +45,7 @@ const LoginUserPage = () => {
 
   useEffect(() => {
     if(!userObj){
-      const fetchUser = async (email: string) => {
+      const fetchUser = async (email) => {
         const fetchedUser = await getUserByEmail(email);
         if (fetchedUser) {
           setUserObj(fetchedUser);

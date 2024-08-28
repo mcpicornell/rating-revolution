@@ -1,12 +1,8 @@
-import {FC} from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import styled from "styled-components";
 
-type StarRatingProps = {
-    rating: number; 
-  };
 
-const StarRating: FC<StarRatingProps> = ({ rating }) => {
+const StarRating = ({ rating }) => {
   const totalStars = 5;
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;

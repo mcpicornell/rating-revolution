@@ -1,147 +1,111 @@
-import { FC } from "react";
 import StarRating from "./StarRating";
-import { IReview } from "../features/interfaces";
-import { useEffect } from "react";
-import { getUserById } from "../features/users/fetchUsers";
-import { useState } from "react";
-import { getCompanyById } from "../features/companies/fetchCompanies";
-import { ICompany, IUser } from "../features/interfaces";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { checkIfSingular, getRandomIndex } from "../features/functions";
+import { checkIfSingular, formatDate } from "../features/functions";
 import { getNumberElementsInArray } from "../features/functions";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { isLoggedUserOrCompany } from "../features/functions";
 
-type ReviewProps = {
-  reviewObj: IReview;
-};
 
-type PropsLikeIcon = {
-  isCompanyLogged: boolean;
-}
-
-const Review: FC<ReviewProps> = ({ reviewObj }) => {
-  const [companyObj, setCompanyObj] = useState<ICompany | null>(null);
-  const [user, setUser] = useState<IUser | null>(null);
+const Review= ({ review }) => {
+  console.log(review);
   const location = useLocation();
-  const date = new Date(reviewObj!.date).toDateString();
+  const date = formatDate(review.date)
   const nav = useNavigate();
   const isCompanyLogged = isLoggedUserOrCompany("company");
+  const company = review.company
+  const reviewer = review.reviewer
 
   const navToCompaniesDetailsOnClick = () => {
-    if (reviewObj) {
-      nav(`/hotels/${reviewObj?.company}`, { state: companyObj });
+    if (review) {
+      nav(`/hotels/${company.id}`, { state: company });
     }
   };
-
-  useEffect(() => {
-    const fetchCompany = async () => {
-      const fetchedCompany = await getCompanyById(reviewObj!.company);
-      setCompanyObj(fetchedCompany);
-    };
-
-    if (!companyObj) {
-      fetchCompany();
-    }
-  }, [companyObj, reviewObj]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const fetchedUser = await getUserById(reviewObj!.reviewer);
-      setUser(fetchedUser);
-    };
-
-    if (!user) {
-      fetchUser();
-    }
-  }, [user, reviewObj]);
 
   switch (location.pathname) {
     case "/":
       return (
         <ContainerHome onClick={navToCompaniesDetailsOnClick}>
           <CompanyPicture
-            src={companyObj?.photos}
+            src={company.photos}
           />
           <ContainerContent>
             <ContainerTopBottom>
-              <CompanyName>{companyObj?.name}</CompanyName>
-              <StarRating rating={reviewObj!.rating} />
+              <CompanyName>{company.name}</CompanyName>
+              <StarRating rating={review.rating} />
             </ContainerTopBottom>
-            <Title>{reviewObj!.title}:</Title>
-            <TextReview>{reviewObj!.text}</TextReview>
+            <Title>{review.title}:</Title>
+            <TextReview>{review.text}</TextReview>
             <ContainerTopBottom>
-              <SpanGreyHome>{user?.name}</SpanGreyHome>
+              <SpanGreyHome>{reviewer.name}</SpanGreyHome>
               <SpanGreyHome>{date}</SpanGreyHome>
             </ContainerTopBottom>
           </ContainerContent>
         </ContainerHome>
       );
-    case `/hotels/${companyObj?.name}`:
-      const userTotalReviews = getNumberElementsInArray(user?.reviews);
-      const reviewString = checkIfSingular(userTotalReviews);
+    case `/hotels/${company.name}`:
+      const reviewString = checkIfSingular(reviewer.reviews);
       return (
         <ContainerReview>
-          <UserContainer>
-            <UserPicture src={user?.avatar} />
-            <UserDetailsContainer>
-              <SpanName>{user?.nickname}</SpanName>
-              <UserNumberReviewsContainer>
-                <SpanGreyNumber>{userTotalReviews}</SpanGreyNumber>
+          <reviewerContainer>
+            <reviewerPicture src={reviewer.avatar} />
+            <reviewerDetailsContainer>
+              <SpanName>{reviewer.nickname}</SpanName>
+              <reviewerNumberReviewsContainer>
+                <SpanGreyNumber>{reviewer.reviews}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewString}</SpanGreyNumber>
-              </UserNumberReviewsContainer>
-            </UserDetailsContainer>
-          </UserContainer>
+              </reviewerNumberReviewsContainer>
+            </reviewerDetailsContainer>
+          </reviewerContainer>
 
           <ContainerContent>
             <RatingDateContainer>
-              <StarRating rating={reviewObj!.rating} />
+              <StarRating rating={review.rating} />
               <SpanGreyDate>{date}</SpanGreyDate>
             </RatingDateContainer>
-            <TitleReview>{reviewObj.title}</TitleReview>
-            <ReviewText>{reviewObj.text}</ReviewText>
+            <TitleReview>{review.title}</TitleReview>
+            <ReviewText>{review.text}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
             <SlLikeStyled isCompanyLogged={isCompanyLogged}/>
-            <NumberLikes>{reviewObj.likes}</NumberLikes>
+            <NumberLikes>{review.likes}</NumberLikes>
             <SlDislikeStyled isCompanyLogged={isCompanyLogged}/>
-            <NumberLikes>{reviewObj.dislikes}</NumberLikes>
+            <NumberLikes>{review.dislikes}</NumberLikes>
           </LikeIconsContainer>
         </ContainerReview>
       );
 
-    case `/profile/${companyObj?.id}`:
-      const userTotalReviewsProfile = getNumberElementsInArray(user?.reviews);
-      const reviewStringProfile = checkIfSingular(userTotalReviewsProfile);
+    case `/profile/${company.id}`:
+      const reviewerTotalReviewsProfile = getNumberElementsInArray(reviewer.reviews);
+      const reviewStringProfile = checkIfSingular(reviewerTotalReviewsProfile);
 
       return (
         <ContainerReview>
-          <UserContainer>
-            <UserPicture src={user?.avatar} />
-            <UserDetailsContainer>
-              <SpanName>{user?.nickname}</SpanName>
-              <UserNumberReviewsContainer>
-                <SpanGreyNumber>{userTotalReviewsProfile}</SpanGreyNumber>
+          <reviewerContainer>
+            <reviewerPicture src={reviewer.avatar} />
+            <reviewerDetailsContainer>
+              <SpanName>{reviewer.nickname}</SpanName>
+              <reviewerNumberReviewsContainer>
+                <SpanGreyNumber>{reviewerTotalReviewsProfile}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewStringProfile}</SpanGreyNumber>
-              </UserNumberReviewsContainer>
-            </UserDetailsContainer>
-          </UserContainer>
+              </reviewerNumberReviewsContainer>
+            </reviewerDetailsContainer>
+          </reviewerContainer>
 
           <ContainerContent>
             <RatingDateContainer>
-              <StarRating rating={reviewObj!.rating} />
+              <StarRating rating={review.rating} />
               <SpanGreyDate>{date}</SpanGreyDate>
             </RatingDateContainer>
-            <TitleReview>{reviewObj.title}</TitleReview>
-            <ReviewText>{reviewObj.text}</ReviewText>
+            <TitleReview>{review.title}</TitleReview>
+            <ReviewText>{review.text}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
             <SlLikeProfile />
-            <NumberLikes>{reviewObj.likes}</NumberLikes>
+            <NumberLikes>{review.likes}</NumberLikes>
             <SlDislikeProfile />
-            <NumberLikes>{reviewObj.dislikes}</NumberLikes>
+            <NumberLikes>{review.dislikes}</NumberLikes>
           </LikeIconsContainer>
         </ContainerReview>
       );
@@ -254,7 +218,7 @@ const ContainerContent = styled.div`
   flex-direction: column;
 `;
 
-const UserPicture = styled.img`
+const reviewerPicture = styled.img`
   width: 50px;
   height: 40px;
   border-radius: 30%;
@@ -262,7 +226,7 @@ const UserPicture = styled.img`
   margin-top: 20px;
 `;
 
-const UserContainer = styled.div`
+const reviewerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,9 +235,9 @@ const UserContainer = styled.div`
   width: 70%;
   margin-left: 5px;
 `;
-const UserDetailsContainer = styled.div``;
+const reviewerDetailsContainer = styled.div``;
 
-const UserNumberReviewsContainer = styled.div`
+const reviewerNumberReviewsContainer = styled.div`
   display: flex;
 `;
 
@@ -285,14 +249,14 @@ const LikeIconsContainer = styled.div`
   align-items: center;
 `;
 
-const SlLikeStyled = styled(SlLike)<PropsLikeIcon>`
+const SlLikeStyled = styled(SlLike)`
   cursor: ${props => props.isCompanyLogged ? "auto" : "pointer"};
   &:hover {
     color: ${props => props.isCompanyLogged ? "none" : "rgb(0, 255, 0)"};
   }
   margin-right: 10px;
 `;
-const SlDislikeStyled = styled(SlDislike)<PropsLikeIcon>`
+const SlDislikeStyled = styled(SlDislike)`
   cursor: ${props => props.isCompanyLogged ? "auto" : "pointer"};
   &:hover {
     color: ${props => props.isCompanyLogged ? "none" : "red"};

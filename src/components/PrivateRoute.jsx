@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export const isLoggedIn = (): boolean => {
+export const isLoggedIn = () => {
     const authData = localStorage.getItem("auth");
     return !!authData;
 };

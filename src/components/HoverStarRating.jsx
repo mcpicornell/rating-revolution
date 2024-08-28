@@ -1,16 +1,12 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import styled from "styled-components";
 
-type HoverStarRatingProps = {
-  onChangeRating: (rating: number) => void;
-};
-
-const HoverStarRating: FC<HoverStarRatingProps> = ({ onChangeRating }) => {
+const HoverStarRating = ({ onChangeRating }) => {
   const [hoverRating, setHoverRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
 
-  const handleStarHover = (rating: number) => {
+  const handleStarHover = (rating) => {
     setHoverRating(rating);
   };
 
@@ -18,7 +14,7 @@ const HoverStarRating: FC<HoverStarRatingProps> = ({ onChangeRating }) => {
     setHoverRating(selectedRating);
   };
 
-  const handleStarClick = (rating: number) => {
+  const handleStarClick = (rating) => {
     setSelectedRating(rating);
     onChangeRating(rating);
   };

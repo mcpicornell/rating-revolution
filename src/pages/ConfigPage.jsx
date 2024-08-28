@@ -5,7 +5,7 @@ import styled from "styled-components";
 const ConfigPage = () => {
 
   const profileData = localStorage.getItem("profile");
-  const parsedData = JSON.parse(profileData as string); 
+  const parsedData = JSON.parse(profileData);
 
   const routes = {
     firstRoute: {

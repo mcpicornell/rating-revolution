@@ -16,10 +16,6 @@ import { useState } from "react";
 import { checkIfSingular } from "../features/functions";
 import { isLoggedUserOrCompany } from "../features/functions";
 
-type PropsMainComment = {
-  isLogged: boolean;
-};
-
 const CompaniesDetailsPage = () => {
   const location = useLocation();
   const companyObj = location.state;
@@ -28,14 +24,14 @@ const CompaniesDetailsPage = () => {
 
   const isLogged = isLoggedUserOrCompany("company");
 
-  const handleRatingChange = (newRating: number) => {
+  const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
 
-  const numberReviewsByRating = (number: number) => {
+  const numberReviewsByRating = (number) => {
     let numberReviews = 0;
-    for (let i = 0; i < companyObj!.reviews.length; i++) {
-      if (companyObj!.reviews[i].rating === number) {
+    for (let i = 0; i < companyObj.reviews.length; i++) {
+      if (companyObj.reviews[i].rating === number) {
         numberReviews++;
       }
     }
@@ -43,18 +39,18 @@ const CompaniesDetailsPage = () => {
   };
 
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj!.phone
+    companyObj.phone
   );
-  const numberReviews = getNumberElementsInArray(companyObj!.reviews);
+  const numberReviews = getNumberElementsInArray(companyObj.reviews);
   const reviewString = checkIfSingular(
-    getNumberElementsInArray(companyObj!.reviews)
+    getNumberElementsInArray(companyObj.reviews)
   );
 
-  let reviews: JSX.Element[] = [];
-  let cardRating: JSX.Element[] = [];
+  let reviews = [];
+  let cardRating = [];
 
-  if (companyObj!.reviews) {
-    const reviewData = [...companyObj!.reviews];
+  if (companyObj.reviews) {
+    const reviewData = [...companyObj.reviews];
     const reviewDataOrdered = reviewData.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
@@ -82,9 +78,9 @@ const CompaniesDetailsPage = () => {
     <PageContainer>
       <HeaderContainer>
         <Header>
-          <Title>{companyObj!.name}</Title>
+          <Title>{companyObj.name}</Title>
           <StarInfoContainer>
-            <StarRating rating={companyObj!.rating} />
+            <StarRating rating={companyObj.rating} />
             <ReviewSpan>
               {numberReviews} {reviewString}
             </ReviewSpan>
@@ -93,7 +89,7 @@ const CompaniesDetailsPage = () => {
         <SubHeader>
           <SubHeaderElementContainer>
             <MdLocationOnStyled />
-            <SpanGrey>{companyObj!.address}</SpanGrey>
+            <SpanGrey>{companyObj.address}</SpanGrey>
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <BsFillTelephoneFillStyled />
@@ -101,7 +97,7 @@ const CompaniesDetailsPage = () => {
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <HiMailStyled />
-            <SpanGrey>{companyObj!.email}</SpanGrey>
+            <SpanGrey>{companyObj.email}</SpanGrey>
           </SubHeaderElementContainer>
         </SubHeader>
       </HeaderContainer>
@@ -112,12 +108,12 @@ const CompaniesDetailsPage = () => {
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
-          <SpanCardTitle>{companyObj!.name}</SpanCardTitle>
-          <SpanCardDescription>{companyObj!.description}</SpanCardDescription>
+          <SpanCardTitle>{companyObj.name}</SpanCardTitle>
+          <SpanCardDescription>{companyObj.description}</SpanCardDescription>
           <CardInfoContactContainer>
             <ContactContainer>
               <HiMail />
-              <SpanGreyStyled>{companyObj!.email}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj.email}</SpanGreyStyled>
             </ContactContainer>
             <ContactContainer>
               <BsFillTelephoneFill />
@@ -125,7 +121,7 @@ const CompaniesDetailsPage = () => {
             </ContactContainer>
             <ContactContainer>
               <MdLocationOn />
-              <SpanGreyStyled>{companyObj!.address}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj.address}</SpanGreyStyled>
             </ContactContainer>
           </CardInfoContactContainer>
         </CardInfoContainer>
@@ -301,7 +297,7 @@ const CommentsContainer = styled.div`
   flex-direction: column;
 `;
 
-const MainCommentContainer = styled.div<PropsMainComment>`
+const MainCommentContainer = styled.div`
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(224, 224, 224, 1);

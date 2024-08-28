@@ -1,10 +1,12 @@
 
+
+
 export const request = async (
   method,
   endpoint,
   body
 ) => {
-  const apiBaseUrl = process.env.BACKEND_API;
+  const apiBaseUrl = process.env.REACT_APP_BACKEND_API_URL;
 
   if (!apiBaseUrl) {
     throw new Error('BACKEND_API is not defined in environment variables');

@@ -1,15 +1,11 @@
-import { IReview, IUser } from "../features/interfaces";
 import styled from "styled-components";
 import Review from "./Review";
 import { getNumberElementsInArray } from "../features/functions";
 import StarRating from "./StarRating";
-type PropsUserProfile = {
-  userObj?: IUser;
-};
 
-const UserProfile = ({ userObj }: PropsUserProfile) => {
+const UserProfile = ({ userObj }) => {
   if (userObj) {
-    const { id, name, reviews, email, avatar, nickname, rating } = userObj;
+    const { name, reviews, email, avatar, nickname, rating } = userObj;
 
     const numberTotalReviews = getNumberElementsInArray(reviews)
 
@@ -39,7 +35,7 @@ const UserProfile = ({ userObj }: PropsUserProfile) => {
         </ProfileContainer>
 
         <div>
-          {reviews.map((reviewObj: any) => (
+          {reviews.map((reviewObj) => (
             <Review key={reviewObj.id} reviewObj={reviewObj} />
           ))}
         </div>

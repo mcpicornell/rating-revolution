@@ -1,6 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IReview } from '../interfaces';
-import reviewsJSON from '../../data/database/reviews.json'
 import { request } from '../utils';
 
 
@@ -16,7 +13,8 @@ export const fetchReviews = async (setState) => {
     const body = null
     const response = await request("GET", "/reviews/", body)
     if(response.ok){
-        setState(await response.json())
+        const data = await response.json()
+        setState(data)
     }
 }
 
@@ -40,18 +38,18 @@ export const getReviewById = async (id, setState) => {
 //     });
 // };
 
-export const addReview = createAsyncThunk<IReview, IReview>('reviews/addReview', async (reviewObj) => {
+export const addReview = async (reviewObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(reviewObj)
         }, 200)
     })
-});
+};
 
-export const deleteReview = createAsyncThunk<IReview, IReview>('reviews/deleteReview', async (reviewObj) => {
+export const deleteReview = async (reviewObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(reviewObj)
         }, 200)
     })
-});
+};

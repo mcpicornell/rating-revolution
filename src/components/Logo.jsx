@@ -4,7 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 const Logo = () => {
   return (
       <LogoContainer >
-        <LogoStar />
+        <LogoStar  />
         <Title>
           Rating <Subtitle>Revolution</Subtitle>
         </Title>

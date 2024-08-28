@@ -1,9 +1,8 @@
-import { FC } from "react";
 import Navbar from "./Navbar";
 import { Outlet } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
-const Layout: FC = () => {
+const Layout = () => {
   const location = useLocation();
     return (
       <div>

@@ -8,7 +8,6 @@ import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import AboutUsPage from "./pages/AboutUsPage";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
 import { PrivateRoute } from "./components/PrivateRoute";
 import CompaniesDetailsPage from "./pages/CompaniesDetailsPage";
 import CreateUserPage from "./pages/CreateUserPage";
@@ -19,7 +18,6 @@ import ConfigPage from "./pages/ConfigPage";
 function App() {
   
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
@@ -64,7 +62,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
   );
 }
 
