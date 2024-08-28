@@ -9,7 +9,6 @@ import { isLoggedUserOrCompany } from "../features/functions";
 
 
 const Review= ({ review }) => {
-  console.log(review);
   const location = useLocation();
   const date = formatDate(review.date)
   const nav = useNavigate();

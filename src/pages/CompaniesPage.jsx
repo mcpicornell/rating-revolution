@@ -6,22 +6,22 @@ import styled from "styled-components";
 
 const CompaniesPage = () => {
 
-  const [companies, setCompanies] = useState()
+  const [companies, setCompanies] = useState(null)
 
-  useEffect(() => {
-    if (!companies) {
-      setCompanies(fetchCompanies())
-    }
-  }, [companies]);
+    useEffect(() => {
+        if (!companies) {
+            fetchCompanies(setCompanies)
+        }
+    }, [companies]);
   let content = [];
 
   if (companies) {
     const companiesDataCopy = [...companies];
-    companiesDataCopy.forEach((companyObj) => {
-      if (companyObj) {
+    companiesDataCopy.forEach((company) => {
+      if (company) {
         content.push(
           <>
-            <HotelCard key={companyObj.id} companyObj={companyObj} />
+            <HotelCard key={company.id} company={company} />
           </>
         );
       }

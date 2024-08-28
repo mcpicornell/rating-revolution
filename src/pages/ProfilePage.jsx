@@ -4,7 +4,7 @@ import { CompaniesProfile } from "../components/CompaniesProfile";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getUserById } from "../features/users/fetchUsers";
-import { getCompanyById } from "../features/companies/fetchCompanies";
+import { fetchCompanyById } from "../features/companies/fetchCompanies";
 import UserProfile from "../components/UserProfile";
 
 const ProfilePage = () => {
@@ -38,7 +38,7 @@ const ProfilePage = () => {
     }
     if (parsedData.profile === "company" && !companyObj) {
       const fetchCompany = async (id) => {
-        const fetchedCompany = await getCompanyById(id);
+        const fetchedCompany = await fetchCompanyById(id);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);
         }

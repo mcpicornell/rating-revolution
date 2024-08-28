@@ -1,36 +1,33 @@
-import companiesJSON from '../../data/database/companies.json'
+import {request} from "../utils";
 
+export const fetchCompanies = async (setState) => {
+    const body = null
+    const response = await request("GET", "/companies/", body)
+    if(response.ok){
+        const data = await response.json()
+        setState(data)
+    }
+}
 
+export const fetchCompanyById = async (id, setState) => {
+    const body = null
+    console.log('hello there')
+    const response = await request("GET", `/companies/${id}/`, body)
+    if(response.ok){
+        const data = await response.json()
+        console.log(data)
+        setState(data)
+    }
+}
 
-export const fetchCompanies = async (setCompanies) => {
-    return await new Promise ((resolve) => {
-        setTimeout(() => {
-            resolve(companiesJSON)
-        }, 200)
-    })
-};
-
-export const getCompanyById = async (id) => {
-    const companies = companiesJSON
-  
-    const foundCompany = companies.find((company) => company.id === id);
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(foundCompany || null);
-      }, 200);
-    });
-};
-
-export const getcompanyByCIF = async (CIF) => {
-    const companies = companiesJSON
-  
-    const foundCompany = companies.find((company) => company.CIF === CIF);
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(foundCompany || null);
-      }, 200);
-    });
-};
+export const getCompanyByCIF = async (CIF, setState) => {
+    const body = null
+    const response = await request("GET", `/companies/?CIF=${CIF}`, body)
+    if(response.ok){
+        const data = await response.json()
+        setState(data[0])
+    }
+}
 
 export const addCompany = async (companyObj) => {
     return await new Promise ((resolve) => {

@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 
 const StarRating = ({ rating }) => {
+  const ratingNumber = Number(rating)
   const totalStars = 5;
-  const fullStars = Math.floor(rating);
+  const fullStars = Math.floor(ratingNumber);
   const hasHalfStar = rating % 1 !== 0;
 
   const stars = [];

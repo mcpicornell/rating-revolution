@@ -18,7 +18,7 @@ import {
 import styled from "styled-components";
 import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getcompanyByCIF } from "../features/companies/fetchCompanies";
+import { getCompanyByCIF } from "../features/companies/fetchCompanies";
 
 const LoginCompanyPage = () => {
   const firstRoute = {
@@ -45,7 +45,7 @@ const LoginCompanyPage = () => {
   useEffect(() => {
     if(!companyObj){
       const fetchCompany = async (CIF) => {
-        const fetchedCompany = await getcompanyByCIF(CIF);
+        const fetchedCompany = await getCompanyByCIF(CIF);
         if (fetchedCompany) {
           setCompanyObj(fetchedCompany);
         }
