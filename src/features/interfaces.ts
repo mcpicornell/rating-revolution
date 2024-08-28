@@ -1,35 +1,34 @@
 export interface IUser {
-    userId: string,
+    id: string,
     name: string,
     email: string,
-    password: string,
-    profilePicture: string,
-    reviews: IReview[],
-    nickName: string
+    avatar: string,
+    reviews: any,
+    nickname: string,
+    rating: string,
 }
 
 export interface IReview {
-    reviewId: string,
-    companyId: string,
+    id: string,
+    company: string,
     rating: number,
-    userId: string,
-    reviewTitle: string,
-    reviewText: string,
+    reviewer: string,
+    title: string,
+    text: string,
     date: string,
     likes: number,
     dislikes: number
 }
 
 export interface ICompany{
-    companyId: string,
-    companyName: string,
+    id: string,
+    name: string,
     rating: number,
     description: string,
-    photos: string[],
-    reviews:IReview[],
+    photos: any,
+    reviews: any,
     email: string,
-    adress: string,
-    contactNumber: string,
+    address: string,
+    phone: string,
     CIF: string,
-    password: string
 }

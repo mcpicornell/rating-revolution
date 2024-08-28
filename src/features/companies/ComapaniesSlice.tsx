@@ -46,7 +46,7 @@ export const CompaniesSlice = createSlice({
       })
       .addCase(deleteCompany.fulfilled, (state, action) => {
         state.data = state.data.filter(
-          (element) => element.companyId !== action.payload.companyId
+          (element) => element.id !== action.payload.id
         );
       })
       .addCase(deleteCompany.rejected, (state, action) => {

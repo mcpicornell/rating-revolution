@@ -15,7 +15,7 @@ export const fetchUsers = createAsyncThunk<IUser[], void>('users/fetchUsers', as
 export const getUserById = async (userId: string): Promise<IUser | null> => {
     const users: IUser[] = usersJSON
   
-    const foundUser = users.find((user) => user.userId === userId);
+    const foundUser = users.find((user) => user.id === userId);
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(foundUser || null);

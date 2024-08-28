@@ -46,7 +46,7 @@ export const ReviewsSlice = createSlice({
       })
       .addCase(deleteReview.fulfilled, (state, action) => {
         state.data = state.data.filter(
-          (element) => element.reviewId !== action.payload.reviewId
+          (element) => element.id !== action.payload.id
         );
       })
       .addCase(deleteReview.rejected, (state, action) => {

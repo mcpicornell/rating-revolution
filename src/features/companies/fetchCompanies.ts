@@ -12,10 +12,10 @@ export const fetchCompanies = createAsyncThunk<ICompany[], void>('companies/fetc
     })
 });
 
-export const getCompanyById = async (companyId: string): Promise<ICompany | null> => {
+export const getCompanyById = async (id: string): Promise<ICompany | null> => {
     const companies: ICompany[] = companiesJSON
   
-    const foundCompany = companies.find((company) => company.companyId === companyId);
+    const foundCompany = companies.find((company) => company.id === id);
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(foundCompany || null);

@@ -20,14 +20,13 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     const lastReviews = arrayReviews.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    let lastThreeReviews = lastReviews.slice(0, 3);
-    return lastThreeReviews;
+    return lastReviews.slice(0, 3);
   };
   const reviews = getLastThreeReviews(reviewsArrCopy);
 
   const navToCompaniesDetailsOnClick = () => {
     if (companyObj) {
-      nav(`/hotels/${companyObj?.companyId}`, { state: companyObj });
+      nav(`/hotels/${companyObj?.id}`, { state: companyObj });
     }
   };
 
@@ -35,7 +34,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
     const fetchAllUsers = async () => {
       const uniqueUserIds: { [key: string]: boolean } = {};
       for (let i = 0; i < reviews.length; i++) {
-        uniqueUserIds[reviews[i].userId] = true;
+        uniqueUserIds[reviews[i].id] = true;
       }
 
       const fetchUsers = async () => {
@@ -68,20 +67,20 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
 
   users.forEach((user) => {
     const profilePictureObj = {
-      userId: user.userId,
-      profilePicture: user.profilePicture,
+      id: user.id,
+      avatar: user.avatar,
     };
     userPicture.push(
       <UserPicture
-        key={profilePictureObj.userId}
-        src={profilePictureObj.profilePicture}
+        key={profilePictureObj.id}
+        src={profilePictureObj.avatar}
         alt="user"
       />
     );
   });
   return (
     <CardContainer onClick={navToCompaniesDetailsOnClick}>
-      <CompanyName>{companyObj?.companyName}</CompanyName>
+      <CompanyName>{companyObj?.name}</CompanyName>
       <CompanyPicture src={companyObj?.photos[0]} />
       <StarRating rating={companyObj!.rating} />
       <ContainerBottom>
@@ -89,7 +88,7 @@ const CompanyCard: FC<CompanyProps> = ({ companyObj }) => {
         <ContainerInfoReviews>
           <CommentSvg />
           <CommentInfo>
-            {getNumberElementsInArray(companyObj!.reviews)}
+            {reviews}
           </CommentInfo>
         </ContainerInfoReviews>
       </ContainerBottom>

@@ -7,8 +7,8 @@ import DualNavigation from "../components/DualNavigation";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../features/interfaces";
 import { getUserByEmail } from "../features/users/fetchUsers";
-import { useState, FormEvent, useEffect } from "react";
-
+import React, { useState, FormEvent, useEffect } from "react";
+import { request } from '../features/utils';
 
 const LoginUserPage = () => {
   const nav = useNavigate();
@@ -37,10 +37,10 @@ const LoginUserPage = () => {
     if(email === "neo@neo.com" && password === "neo") {
       
       localStorage.setItem("auth", "true");
-      const obj = JSON.stringify({profile: "user", id: userObj?.userId});
+      const obj = JSON.stringify({profile: "user", id: userObj?.id});
       localStorage.setItem("profile", obj);
       if(localStorage.getItem("auth")){
-        nav(`/profile/${userObj?.userId}`)
+        nav(`/profile/${userObj?.id}`)
       }
     }
   };

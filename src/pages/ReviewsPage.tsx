@@ -25,7 +25,7 @@ const Reviews = () => {
       if(reviewObj){
         content.push(
           <>
-            <Review key={reviewObj.reviewId} reviewObj={reviewObj} />
+            <Review key={reviewObj.id} reviewObj={reviewObj} />
           </>
         )
       }

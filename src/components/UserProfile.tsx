@@ -9,28 +9,15 @@ type PropsUserProfile = {
 
 const UserProfile = ({ userObj }: PropsUserProfile) => {
   if (userObj) {
-    const { userId, name, reviews, email, profilePicture, nickName } = userObj;
-
-    const reviewOrdered = reviews.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
+    const { id, name, reviews, email, avatar, nickname, rating } = userObj;
 
     const numberTotalReviews = getNumberElementsInArray(reviews)
 
-    const getAverageRating = (reviews: IReview[]) => {
-        let amount = 0;
-        reviews.forEach(element => {
-            amount = amount + Number(element.rating);
-        });
-        const averageRating = amount / reviews.length;
-        return averageRating
-    }
-    const averageRating = getAverageRating(reviews);
     return (
       <PageContainer>
         <ProfileContainer>
           <ImgContainer>
-            <ProfileImg src={profilePicture} alt="userImg" />
+            <ProfileImg src={avatar} alt="userImg" />
           </ImgContainer>
           <InfoContainer>
             <NamesContainer>
@@ -44,16 +31,16 @@ const UserProfile = ({ userObj }: PropsUserProfile) => {
             <DetailsContainer>
               <DetailsSpan>{name}</DetailsSpan>
               <DetailsSpan>{email}</DetailsSpan>
-              <DetailsSpan>{nickName}</DetailsSpan>
+              <DetailsSpan>{nickname}</DetailsSpan>
               <DetailsSpan>{numberTotalReviews}</DetailsSpan>
-              <StarRating rating={averageRating}/>
+              <StarRating rating={Number(rating)}/>
             </DetailsContainer>
           </InfoContainer>
         </ProfileContainer>
 
         <div>
-          {reviewOrdered.map((reviewObj) => (
-            <Review key={reviewObj.reviewId} reviewObj={reviewObj} />
+          {reviews.map((reviewObj: any) => (
+            <Review key={reviewObj.id} reviewObj={reviewObj} />
           ))}
         </div>
       </PageContainer>

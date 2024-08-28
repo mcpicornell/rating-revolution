@@ -32,13 +32,13 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
 
   const navToCompaniesDetailsOnClick = () => {
     if (reviewObj) {
-      nav(`/hotels/${reviewObj?.companyId}`, { state: companyObj });
+      nav(`/hotels/${reviewObj?.company}`, { state: companyObj });
     }
   };
 
   useEffect(() => {
     const fetchCompany = async () => {
-      const fetchedCompany = await getCompanyById(reviewObj!.companyId);
+      const fetchedCompany = await getCompanyById(reviewObj!.company);
       setCompanyObj(fetchedCompany);
     };
 
@@ -49,7 +49,7 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const fetchedUser = await getUserById(reviewObj!.userId);
+      const fetchedUser = await getUserById(reviewObj!.reviewer);
       setUser(fetchedUser);
     };
 
@@ -63,15 +63,15 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
       return (
         <ContainerHome onClick={navToCompaniesDetailsOnClick}>
           <CompanyPicture
-            src={companyObj?.photos[getRandomIndex(companyObj?.photos)]}
+            src={companyObj?.photos}
           />
           <ContainerContent>
             <ContainerTopBottom>
-              <CompanyName>{companyObj?.companyName}</CompanyName>
+              <CompanyName>{companyObj?.name}</CompanyName>
               <StarRating rating={reviewObj!.rating} />
             </ContainerTopBottom>
-            <Title>{reviewObj!.reviewTitle}:</Title>
-            <TextReview>{reviewObj!.reviewText}</TextReview>
+            <Title>{reviewObj!.title}:</Title>
+            <TextReview>{reviewObj!.text}</TextReview>
             <ContainerTopBottom>
               <SpanGreyHome>{user?.name}</SpanGreyHome>
               <SpanGreyHome>{date}</SpanGreyHome>
@@ -79,15 +79,15 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
           </ContainerContent>
         </ContainerHome>
       );
-    case `/hotels/${companyObj?.companyId}`:
+    case `/hotels/${companyObj?.name}`:
       const userTotalReviews = getNumberElementsInArray(user?.reviews);
       const reviewString = checkIfSingular(userTotalReviews);
       return (
         <ContainerReview>
           <UserContainer>
-            <UserPicture src={user?.profilePicture} />
+            <UserPicture src={user?.avatar} />
             <UserDetailsContainer>
-              <SpanName>{user?.nickName}</SpanName>
+              <SpanName>{user?.nickname}</SpanName>
               <UserNumberReviewsContainer>
                 <SpanGreyNumber>{userTotalReviews}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewString}</SpanGreyNumber>
@@ -100,8 +100,8 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
               <StarRating rating={reviewObj!.rating} />
               <SpanGreyDate>{date}</SpanGreyDate>
             </RatingDateContainer>
-            <TitleReview>{reviewObj.reviewTitle}</TitleReview>
-            <ReviewText>{reviewObj.reviewText}</ReviewText>
+            <TitleReview>{reviewObj.title}</TitleReview>
+            <ReviewText>{reviewObj.text}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
             <SlLikeStyled isCompanyLogged={isCompanyLogged}/>
@@ -112,16 +112,16 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
         </ContainerReview>
       );
 
-    case `/profile/${companyObj?.companyId}`:
+    case `/profile/${companyObj?.id}`:
       const userTotalReviewsProfile = getNumberElementsInArray(user?.reviews);
       const reviewStringProfile = checkIfSingular(userTotalReviewsProfile);
 
       return (
         <ContainerReview>
           <UserContainer>
-            <UserPicture src={user?.profilePicture} />
+            <UserPicture src={user?.avatar} />
             <UserDetailsContainer>
-              <SpanName>{user?.nickName}</SpanName>
+              <SpanName>{user?.nickname}</SpanName>
               <UserNumberReviewsContainer>
                 <SpanGreyNumber>{userTotalReviewsProfile}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewStringProfile}</SpanGreyNumber>
@@ -134,8 +134,8 @@ const Review: FC<ReviewProps> = ({ reviewObj }) => {
               <StarRating rating={reviewObj!.rating} />
               <SpanGreyDate>{date}</SpanGreyDate>
             </RatingDateContainer>
-            <TitleReview>{reviewObj.reviewTitle}</TitleReview>
-            <ReviewText>{reviewObj.reviewText}</ReviewText>
+            <TitleReview>{reviewObj.title}</TitleReview>
+            <ReviewText>{reviewObj.text}</ReviewText>
           </ContainerContent>
           <LikeIconsContainer>
             <SlLikeProfile />

@@ -43,7 +43,7 @@ const CompaniesDetailsPage = () => {
   };
 
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj!.contactNumber
+    companyObj!.phone
   );
   const numberReviews = getNumberElementsInArray(companyObj!.reviews);
   const reviewString = checkIfSingular(
@@ -60,7 +60,7 @@ const CompaniesDetailsPage = () => {
     );
     reviewDataOrdered.forEach((reviewObj) => {
       if (reviewObj) {
-        reviews.push(<Review key={reviewObj.reviewId} reviewObj={reviewObj} />);
+        reviews.push(<Review key={reviewObj.id} reviewObj={reviewObj} />);
       }
     });
     for (let i = 5; i > 0; i--) {
@@ -82,7 +82,7 @@ const CompaniesDetailsPage = () => {
     <PageContainer>
       <HeaderContainer>
         <Header>
-          <Title>{companyObj!.companyName}</Title>
+          <Title>{companyObj!.name}</Title>
           <StarInfoContainer>
             <StarRating rating={companyObj!.rating} />
             <ReviewSpan>
@@ -93,7 +93,7 @@ const CompaniesDetailsPage = () => {
         <SubHeader>
           <SubHeaderElementContainer>
             <MdLocationOnStyled />
-            <SpanGrey>{companyObj!.adress}</SpanGrey>
+            <SpanGrey>{companyObj!.address}</SpanGrey>
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <BsFillTelephoneFillStyled />
@@ -112,7 +112,7 @@ const CompaniesDetailsPage = () => {
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
-          <SpanCardTitle>{companyObj!.companyName}</SpanCardTitle>
+          <SpanCardTitle>{companyObj!.name}</SpanCardTitle>
           <SpanCardDescription>{companyObj!.description}</SpanCardDescription>
           <CardInfoContactContainer>
             <ContactContainer>
@@ -125,7 +125,7 @@ const CompaniesDetailsPage = () => {
             </ContactContainer>
             <ContactContainer>
               <MdLocationOn />
-              <SpanGreyStyled>{companyObj!.adress}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj!.address}</SpanGreyStyled>
             </ContactContainer>
           </CardInfoContactContainer>
         </CardInfoContainer>

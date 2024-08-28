@@ -34,7 +34,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
   };
 
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj!.contactNumber
+    companyObj!.phone
   );
   const numberReviews = getNumberElementsInArray(companyObj!.reviews);
   const reviewString = checkIfSingular(
@@ -59,7 +59,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
     <PageContainer>
       <HeaderContainer>
         <Header>
-          <Title>{companyObj?.companyName}</Title>
+          <Title>{companyObj?.name}</Title>
           <StarInfoContainer>
             <StarRating rating={companyObj!.rating} />
             <ReviewSpan>
@@ -70,7 +70,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
         <SubHeader>
           <SubHeaderElementContainer>
             <MdLocationOnStyled />
-            <SpanGrey>{companyObj?.adress}</SpanGrey>
+            <SpanGrey>{companyObj?.address}</SpanGrey>
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <BsFillTelephoneFillStyled />
@@ -91,7 +91,7 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
-          <SpanCardTitle>{companyObj?.companyName}</SpanCardTitle>
+          <SpanCardTitle>{companyObj?.name}</SpanCardTitle>
           <SpanCardDescription>{companyObj?.description}</SpanCardDescription>
           <CardInfoContactContainer>
             <ContactContainer>
@@ -104,14 +104,14 @@ export const CompaniesProfile = ({ companyObj }: PropsCompanyProfile) => {
             </ContactContainer>
             <ContactContainer>
               <MdLocationOn />
-              <SpanGreyStyled>{companyObj?.adress}</SpanGreyStyled>
+              <SpanGreyStyled>{companyObj?.address}</SpanGreyStyled>
             </ContactContainer>
           </CardInfoContactContainer>
         </CardInfoContainer>
       </CardsContainer>
       <CommentsContainer>
         {reviewDataOrdered.map((reviewObj) => (
-          <Review key={reviewObj.reviewId} reviewObj={reviewObj} />
+          <Review key={reviewObj.id} reviewObj={reviewObj} />
         ))}
       </CommentsContainer>
     </PageContainer>

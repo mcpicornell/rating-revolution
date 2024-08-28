@@ -62,10 +62,10 @@ const LoginCompanyPage = () => {
     event.preventDefault()
     if(CIF === "B01" && password === "1234") {
       localStorage.setItem("auth", "true");
-      const obj = JSON.stringify({profile: "company", id: companyObj?.companyId});
+      const obj = JSON.stringify({profile: "company", id: companyObj?.id});
       localStorage.setItem("profile", obj);
       if(localStorage.getItem("auth")){
-        nav(`/profile/${companyObj?.companyId}`)
+        nav(`/profile/${companyObj?.id}`)
       }
     }
   };
