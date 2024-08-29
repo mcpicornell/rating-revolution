@@ -39,7 +39,7 @@ const LoginCompanyPage = () => {
         if (loginResponse) {
             console.log(loginResponse)
             localStorage.setItem("auth", "true");
-            const obj = JSON.stringify({profile: "user", id: loginResponse.id});
+            const obj = JSON.stringify({profile: "company", id: loginResponse.id});
             localStorage.setItem("profile", obj);
             nav(`/profile/${loginResponse.id}`)
         }
@@ -47,7 +47,7 @@ const LoginCompanyPage = () => {
 
 
     const handleInputCIFChange = (event) => {
-        setEmail(event.target.value)
+        setCIF(event.target.value)
     };
     const handleInputPasswordChange = (event) => {
         setPassword(event.target.value)

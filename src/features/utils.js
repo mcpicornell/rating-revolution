@@ -28,6 +28,7 @@ export const request = async (
   if (body && (method === 'POST' || method === 'PATCH')) {
     options.body = JSON.stringify(body);
   }
+  console.log(method)
 
   try {
     return await fetch(url, options);
