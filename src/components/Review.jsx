@@ -44,7 +44,6 @@ const Review= ({ review }) => {
         </ContainerHome>
       );
     case `/hotels/${company.id}`:
-      console.log(review)
       const reviewString = checkIfSingular(reviewer.reviews);
       return (
         <ContainerReview>
