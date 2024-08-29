@@ -1,15 +1,19 @@
 
-
+const methods = ['GET', 'POST', 'PATCH', 'DELETE'];
+const apiBaseUrl = process.env.REACT_APP_BACKEND_API_URL;
 
 export const request = async (
   method,
   endpoint,
   body
 ) => {
-  const apiBaseUrl = process.env.REACT_APP_BACKEND_API_URL;
+
+  if (!methods.includes(method)) {
+    throw new Error(`Method ${method} is not allowed`);
+  }
 
   if (!apiBaseUrl) {
-    throw new Error('BACKEND_API is not defined in environment variables');
+    throw new Error('REACT_APP_BACKEND_API_URL is not defined in environment variables');
   }
 
   const url = `${apiBaseUrl}${endpoint}`;

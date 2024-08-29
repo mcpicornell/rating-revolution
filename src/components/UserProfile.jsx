@@ -3,11 +3,9 @@ import Review from "./Review";
 import { getNumberElementsInArray } from "../features/functions";
 import StarRating from "./StarRating";
 
-const UserProfile = ({ userObj }) => {
-  if (userObj) {
-    const { name, reviews, email, avatar, nickname, rating } = userObj;
-
-    const numberTotalReviews = getNumberElementsInArray(reviews)
+const UserProfile = ({ user }) => {
+  if (user) {
+    const { name, reviews, email, avatar, nickname, rating } = user;
 
     return (
       <PageContainer>
@@ -28,7 +26,7 @@ const UserProfile = ({ userObj }) => {
               <DetailsSpan>{name}</DetailsSpan>
               <DetailsSpan>{email}</DetailsSpan>
               <DetailsSpan>{nickname}</DetailsSpan>
-              <DetailsSpan>{numberTotalReviews}</DetailsSpan>
+              <DetailsSpan>{reviews.length}</DetailsSpan>
               <StarRating rating={Number(rating)}/>
             </DetailsContainer>
           </InfoContainer>

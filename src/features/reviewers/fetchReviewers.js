@@ -1,6 +1,6 @@
 import {request} from "../utils";
 
-export const fetchCompanies = async (setState) => {
+export const fetchReviewers = async (setState) => {
     const body = null
     const response = await request("GET", "/companies/", body)
     if(response.ok){
@@ -9,7 +9,7 @@ export const fetchCompanies = async (setState) => {
     }
 }
 
-export const fetchCompanyById = async (id, setState) => {
+export const fetchReviewerById = async (id, setState) => {
     const response = await request("GET", `/companies/${id}/`)
     if(response.ok){
         const data = await response.json()
@@ -17,15 +17,15 @@ export const fetchCompanyById = async (id, setState) => {
     }
 }
 
-export const getCompanyByCIF = async (CIF, setState) => {
-    const response = await request("GET", `/companies/?CIF=${CIF}`)
+export const getReviewerByEmail = async (email, setState) => {
+    const response = await request("GET", `/companies/?email=${email}`)
     if(response.ok){
         const data = await response.json()
         setState(data[0])
     }
 }
 
-export const createCompany = async (body, setState) => {
+export const createReviewer = async (body, setState) => {
     const response = await request("POST", `/companies/`, body)
     if(response.ok){
         const data = await response.json()
@@ -33,7 +33,7 @@ export const createCompany = async (body, setState) => {
     }
 }
 
-export const updateCompany = async (id, body, setState) => {
+export const updateReviewer = async (id, body, setState) => {
     const response = await request("PATCH", `/companies/${id}`, body)
     if(response.ok){
         const data = await response.json()
@@ -41,7 +41,7 @@ export const updateCompany = async (id, body, setState) => {
     }
 }
 
-export const deleteCompany = async (id, setState) => {
+export const deleteReviewer = async (id, setState) => {
     const response = await request("DELETE", `/companies/${id}`)
     if(response.ok){
         const data = await response.json()

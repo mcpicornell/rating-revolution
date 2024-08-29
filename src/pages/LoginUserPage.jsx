@@ -1,97 +1,84 @@
 import Logo from "../components/Logo";
 import styled from "styled-components";
-import { HiMail } from "react-icons/hi";
-import { IoMdLock } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import {HiMail} from "react-icons/hi";
+import {IoMdLock} from "react-icons/io";
+import {NavLink, useNavigate} from "react-router-dom";
 import DualNavigation from "../components/DualNavigation";
-import { useNavigate } from "react-router-dom";
-import { getUserByEmail } from "../features/users/fetchUsers";
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
+import { login } from "../features/login/login";
 
 const LoginUserPage = () => {
-  const nav = useNavigate();
-  const firstRoute = {
-    routeNav: "/login",
-    routeString: "User"
-  }
-
-  const secondRoute = {
-    routeNav: "/login-hotel",
-    routeString: "Hotel"
-  }
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [userObj, setUserObj] = useState();
-
-  const handleInputEmailChange = (event) => {
-    setEmail(event?.target.value)
-  };
-  const handleInputPasswordChange = (event) => {
-    setPassword(event?.target.value)
-  };
-  
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    if(email === "neo@neo.com" && password === "neo") {
-      
-      localStorage.setItem("auth", "true");
-      const obj = JSON.stringify({profile: "user", id: userObj?.id});
-      localStorage.setItem("profile", obj);
-      if(localStorage.getItem("auth")){
-        nav(`/profile/${userObj?.id}`)
-      }
+    const nav = useNavigate();
+    const firstRoute = {
+        routeNav: "/login",
+        routeString: "User"
     }
-  };
 
-  useEffect(() => {
-    if(!userObj){
-      const fetchUser = async (email) => {
-        const fetchedUser = await getUserByEmail(email);
-        if (fetchedUser) {
-          setUserObj(fetchedUser);
+    const secondRoute = {
+        routeNav: "/login-hotel",
+        routeString: "Hotel"
+    }
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [loginResponse, setLoginResponse] = useState();
+
+    useEffect(() => {
+        if (loginResponse) {
+            console.log(loginResponse)
+            localStorage.setItem("auth", "true");
+            const obj = JSON.stringify({profile: "user", id: loginResponse.id});
+            localStorage.setItem("profile", obj);
+            nav(`/profile/${loginResponse.id}`)
         }
-        return null;
-      };
-    if(email){
-      fetchUser(email)
-    }
-    }
-  }, [email, userObj]);
+    }, [loginResponse]);
+
+
+    const handleInputEmailChange = (event) => {
+        setEmail(event.target.value)
+    };
+    const handleInputPasswordChange = (event) => {
+        setPassword(event.target.value)
+    };
+
+    const onSubmitHandler = (event) => {
+        event.preventDefault();
+        login({email: email, password: password}, setLoginResponse)
+    };
 
     return (
-      <LoginForm onSubmit={onSubmitHandler}>
-        <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute} /> 
-        <Logo />
-        <ContainerText>
-          <Title>Join our community!</Title>
-          <SubTitle>Your reviews makes the difference</SubTitle>
-          <InputContainer>
-            <HiMailStyled />
-            <InputForm placeholder="Email" type="email" required onChange={handleInputEmailChange}/>
-          </InputContainer>
-          <InputContainer>
-            <IoMdLockStyled />
-            <InputForm placeholder="Password" type="password" required onChange={handleInputPasswordChange}/>
-          </InputContainer>
-          <ButtonLogin type="submit">Login</ButtonLogin>
-        </ContainerText>
-        <ContainerCreateAccount>
-          <SubTitle>Don't have an account yet?</SubTitle>
-          <NavLinkStyled to="/create-user">
-            <CreateAccount>Create an account</CreateAccount>
-          </NavLinkStyled>
-        </ContainerCreateAccount>
+        <LoginForm onSubmit={onSubmitHandler}>
+            <DualNavigation firstRoute={firstRoute} secondRoute={secondRoute}/>
+            <Logo/>
+            <ContainerText>
+                <Title>Join our community!</Title>
+                <SubTitle>Your reviews makes the difference</SubTitle>
+                <InputContainer>
+                    <HiMailStyled/>
+                    <InputForm placeholder="Email" type="email" required onChange={handleInputEmailChange}/>
+                </InputContainer>
+                <InputContainer>
+                    <IoMdLockStyled/>
+                    <InputForm placeholder="Password" type="password" required onChange={handleInputPasswordChange}/>
+                </InputContainer>
+                <ButtonLogin type="submit">Login</ButtonLogin>
+            </ContainerText>
+            <ContainerCreateAccount>
+                <SubTitle>Don't have an account yet?</SubTitle>
+                <NavLinkStyled to="/create-user">
+                    <CreateAccount>Create an account</CreateAccount>
+                </NavLinkStyled>
+            </ContainerCreateAccount>
 
-        <ContainerCredentials>
-          <SubTitle>email: <Title>neo@neo.com</Title></SubTitle>
-          <SubTitle>password: <Title>neo</Title></SubTitle>
-        </ContainerCredentials>
-      </LoginForm>
+            <ContainerCredentials>
+                <SubTitle>email: <Title>neo@neo.com</Title></SubTitle>
+                <SubTitle>password: <Title>neo</Title></SubTitle>
+            </ContainerCredentials>
+        </LoginForm>
     );
-  };
-  export default LoginUserPage;
-  
-  export const LoginForm = styled.form`
+};
+export default LoginUserPage;
+
+export const LoginForm = styled.form`
     border-radius: 24px;
     margin: 0 auto;
     margin-top: 50px;
@@ -102,13 +89,13 @@ const LoginUserPage = () => {
     min-width: 200px;
     width: 350px;
     padding: 20px 20px 10px 30px;
-  `
-  export const ContainerText = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-  `;
-  export const Title = styled.span`
+`
+export const ContainerText = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+`;
+export const Title = styled.span`
     font-size: 16px;
     font-weight: 500;
     line-height: 25px;
@@ -116,10 +103,10 @@ const LoginUserPage = () => {
     text-align: left;
     margin-top: 10px;
     color: black;
-  `;
-  
-  
-   export const SubTitle = styled.span`
+`;
+
+
+export const SubTitle = styled.span`
     font-size: 13px;
     line-height: 22px;
     letter-spacing: -0.035em;
@@ -127,42 +114,42 @@ const LoginUserPage = () => {
     color: #717070;
     margin-top: 5px;
     margin-bottom: 15px;
-   `;
+`;
 
-  export const InputContainer = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 1px solid  rgba(189, 189, 189, 1);
+    border: 1px solid rgba(189, 189, 189, 1);
     border-radius: 8px;
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 15px;
     width: 85%;
     margin-right: 10px;
-  `;
+`;
 
-  export const HiMailStyled = styled(HiMail)`
+export const HiMailStyled = styled(HiMail)`
     color: rgba(130, 130, 130, 1);
     position: relative;
     bottom: 1px;
-  `;
+`;
 
-  export const IoMdLockStyled = styled(IoMdLock)`
+export const IoMdLockStyled = styled(IoMdLock)`
     color: rgba(130, 130, 130, 1);
     position: relative;
     bottom: 1px;
-  `;
+`;
 
-   export const InputForm = styled.input`
+export const InputForm = styled.input`
     border-radius: 8px;
     border-radius: 8px;
     border: 1px;
     border-color: rgba(189, 189, 189, 1);
     margin: 10px;
     width: 250px;
-   `;
-    export const ButtonLogin = styled.button`
+`;
+export const ButtonLogin = styled.button`
     margin-top: 10px;
     background-color: rgba(47, 128, 237, 1);
     color: #FFFFFF;
@@ -173,27 +160,27 @@ const LoginUserPage = () => {
     border: none;
     width: 92%;
     cursor: pointer;
-   `;
+`;
 
-   export const ContainerCreateAccount = styled.div`
+export const ContainerCreateAccount = styled.div`
     display: flex;
     justify-content: center;
     margin-right: 10px;
     margin-top: 20px;
     margin-bottom: 0px;
-   `
+`
 
-   export const CreateAccount = styled(SubTitle)`
+export const CreateAccount = styled(SubTitle)`
     margin-left: 5px;
     color: #2D9CDB;
     font-weight: 400;
     cursor: pointer;
-   `
-   export const NavLinkStyled = styled(NavLink)`
+`
+export const NavLinkStyled = styled(NavLink)`
     text-decoration-color: #2D9CDB;
-   `;
+`;
 
-   export const ContainerCredentials = styled.div`
+export const ContainerCredentials = styled.div`
     display: flex;
     justify-content: space-around;
-   `;
+`;

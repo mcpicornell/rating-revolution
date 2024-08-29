@@ -11,40 +11,30 @@ import { HiMail } from "react-icons/hi";
 import { checkIfSingular } from "../features/functions";
 
 
-export const CompaniesProfile = ({ companyObj }) => {
+export const CompaniesProfile = ({ company }) => {
   let cardRating = [];
 
-  const reviewData = [...companyObj.reviews];
+  const reviewData = [...company.reviews];
   const reviewDataOrdered = reviewData.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  const numberReviewsByRating = (number) => {
-    let numberReviews = 0;
-    for (let i = 0; i < companyObj.reviews.length; i++) {
-      if (companyObj.reviews[i].rating === number) {
-        numberReviews++;
-      }
-    }
-    return numberReviews;
-  };
-
   const contactNumberWithSpaces = addSpacesToPhoneNumber(
-    companyObj.phone
+    company.phone
   );
-  const numberReviews = getNumberElementsInArray(companyObj.reviews);
+  const numberReviews = getNumberElementsInArray(company.reviews);
   const reviewString = checkIfSingular(
-    getNumberElementsInArray(companyObj.reviews)
+    getNumberElementsInArray(company.reviews)
   );
 
-  if (companyObj?.reviews) {
+  if (company.reviews) {
     for (let i = 5; i > 0; i--) {
       cardRating.push(
         <CardStarRating>
           <StarRating rating={i} />
           <ReviewSpan>
-            {numberReviewsByRating(i)}{" "}
-            {checkIfSingular(numberReviewsByRating(i))}
+            {company.total_reviews}{" "}
+            {checkIfSingular(company.total_reviews(i))}
           </ReviewSpan>
         </CardStarRating>
       );
@@ -55,9 +45,9 @@ export const CompaniesProfile = ({ companyObj }) => {
     <PageContainer>
       <HeaderContainer>
         <Header>
-          <Title>{companyObj?.name}</Title>
+          <Title>{company.name}</Title>
           <StarInfoContainer>
-            <StarRating rating={companyObj.rating} />
+            <StarRating rating={company.rating} />
             <ReviewSpan>
               {numberReviews} {reviewString}
             </ReviewSpan>
@@ -66,7 +56,7 @@ export const CompaniesProfile = ({ companyObj }) => {
         <SubHeader>
           <SubHeaderElementContainer>
             <MdLocationOnStyled />
-            <SpanGrey>{companyObj?.address}</SpanGrey>
+            <SpanGrey>{company.address}</SpanGrey>
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <BsFillTelephoneFillStyled />
@@ -74,25 +64,25 @@ export const CompaniesProfile = ({ companyObj }) => {
           </SubHeaderElementContainer>
           <SubHeaderElementContainer>
             <HiMailStyled />
-            <SpanGrey>{companyObj?.email}</SpanGrey>
+            <SpanGrey>{company.email}</SpanGrey>
           </SubHeaderElementContainer>
         </SubHeader>
       </HeaderContainer>
 
       <SliderContainer>
-        <Slider companyObj={companyObj} />
+        <Slider company={company} />
       </SliderContainer>
 
       <CardsContainer>
         <CardReviewContainer>{cardRating}</CardReviewContainer>
 
         <CardInfoContainer>
-          <SpanCardTitle>{companyObj?.name}</SpanCardTitle>
-          <SpanCardDescription>{companyObj?.description}</SpanCardDescription>
+          <SpanCardTitle>{company.name}</SpanCardTitle>
+          <SpanCardDescription>{company.description}</SpanCardDescription>
           <CardInfoContactContainer>
             <ContactContainer>
               <HiMail />
-              <SpanGreyStyled>{companyObj?.email}</SpanGreyStyled>
+              <SpanGreyStyled>{company.email}</SpanGreyStyled>
             </ContactContainer>
             <ContactContainer>
               <BsFillTelephoneFill />
@@ -100,7 +90,7 @@ export const CompaniesProfile = ({ companyObj }) => {
             </ContactContainer>
             <ContactContainer>
               <MdLocationOn />
-              <SpanGreyStyled>{companyObj?.address}</SpanGreyStyled>
+              <SpanGreyStyled>{company.address}</SpanGreyStyled>
             </ContactContainer>
           </CardInfoContactContainer>
         </CardInfoContainer>

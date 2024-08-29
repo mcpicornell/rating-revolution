@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { CompaniesProfile } from "../components/CompaniesProfile";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getUserById } from "../features/users/fetchUsers";
+import { fetchReviewerById } from "../features/reviewers/fetchReviewers";
 import { fetchCompanyById } from "../features/companies/fetchCompanies";
 import UserProfile from "../components/UserProfile";
+import {fetchReviews} from "../features/reviews/fetchReviews";
 
 const ProfilePage = () => {
   const profileData = localStorage.getItem("profile");
   const parsedData = JSON.parse(profileData);
-  const [companyObj, setCompanyObj] = useState();
-  const [userObj, setUserObj] = useState();
+  const [company, setCompany] = useState();
+  const [user, setUser] = useState();
   const [content, setContent] = useState();
 
   const routes = {
@@ -26,27 +27,15 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    if (parsedData.profile === "user" && !userObj) {
-      const fetchUser = async (id) => {
-        const fetchedUser = await getUserById(id);
-        if (fetchedUser) {
-          setUserObj(fetchedUser);
-        }
-        return null;
-      };
-      fetchUser(parsedData.id);
+    if (parsedData.profile === "user" && !user) {
+      fetchReviewerById(parsedData.id, setUser)
     }
-    if (parsedData.profile === "company" && !companyObj) {
-      const fetchCompany = async (id) => {
-        const fetchedCompany = await fetchCompanyById(id);
-        if (fetchedCompany) {
-          setCompanyObj(fetchedCompany);
-        }
-        return null;
-      };
-      fetchCompany(parsedData.id);
+
+    if (parsedData.profile === "company" && !company) {
+      fetchCompanyById(parsedData.id, setCompany)
     }
-  }, [parsedData.id, userObj, parsedData.profile, companyObj]);
+  }, [parsedData.id, user, parsedData.profile, company]);
+
 
   if (parsedData.profile === "user") {
     return (
@@ -59,13 +48,13 @@ const ProfilePage = () => {
             />
           </ContainerDualNav>
 
-          <UserProfile userObj={userObj} />
+          <UserProfile user={user} />
         </PageContainer>
       </>
     );
   }
 
-  if (parsedData.profile === "company" && companyObj) {
+  if (parsedData.profile === "company" && company) {
     return (
       <>
         <PageContainer>
@@ -76,7 +65,7 @@ const ProfilePage = () => {
             />
           </ContainerDualNav>
 
-          <CompaniesProfile companyObj={companyObj} />
+          <CompaniesProfile company={company} />
         </PageContainer>
       </>
     );
