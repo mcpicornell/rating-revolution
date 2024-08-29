@@ -43,20 +43,21 @@ const Review= ({ review }) => {
           </ContainerContent>
         </ContainerHome>
       );
-    case `/hotels/${company.name}`:
+    case `/hotels/${company.id}`:
+      console.log(review)
       const reviewString = checkIfSingular(reviewer.reviews);
       return (
         <ContainerReview>
-          <reviewerContainer>
-            <reviewerPicture src={reviewer.avatar} />
-            <reviewerDetailsContainer>
+          <ReviewerContainer>
+            <ReviewerPicture src={reviewer.avatar} />
+            <ReviewerDetailsContainer>
               <SpanName>{reviewer.nickname}</SpanName>
-              <reviewerNumberReviewsContainer>
+              <ReviewerNumberReviewsContainer>
                 <SpanGreyNumber>{reviewer.reviews}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewString}</SpanGreyNumber>
-              </reviewerNumberReviewsContainer>
-            </reviewerDetailsContainer>
-          </reviewerContainer>
+              </ReviewerNumberReviewsContainer>
+            </ReviewerDetailsContainer>
+          </ReviewerContainer>
 
           <ContainerContent>
             <RatingDateContainer>
@@ -81,16 +82,16 @@ const Review= ({ review }) => {
 
       return (
         <ContainerReview>
-          <reviewerContainer>
-            <reviewerPicture src={reviewer.avatar} />
-            <reviewerDetailsContainer>
+          <ReviewerContainer>
+            <ReviewerPicture src={reviewer.avatar} />
+            <ReviewerDetailsContainer>
               <SpanName>{reviewer.nickname}</SpanName>
-              <reviewerNumberReviewsContainer>
+              <ReviewerNumberReviewsContainer>
                 <SpanGreyNumber>{reviewerTotalReviewsProfile}</SpanGreyNumber>
                 <SpanGreyNumber>{reviewStringProfile}</SpanGreyNumber>
-              </reviewerNumberReviewsContainer>
-            </reviewerDetailsContainer>
-          </reviewerContainer>
+              </ReviewerNumberReviewsContainer>
+            </ReviewerDetailsContainer>
+          </ReviewerContainer>
 
           <ContainerContent>
             <RatingDateContainer>
@@ -217,7 +218,7 @@ const ContainerContent = styled.div`
   flex-direction: column;
 `;
 
-const reviewerPicture = styled.img`
+const ReviewerPicture = styled.img`
   width: 50px;
   height: 40px;
   border-radius: 30%;
@@ -225,7 +226,7 @@ const reviewerPicture = styled.img`
   margin-top: 20px;
 `;
 
-const reviewerContainer = styled.div`
+const ReviewerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,9 +235,9 @@ const reviewerContainer = styled.div`
   width: 70%;
   margin-left: 5px;
 `;
-const reviewerDetailsContainer = styled.div``;
+const ReviewerDetailsContainer = styled.div``;
 
-const reviewerNumberReviewsContainer = styled.div`
+const ReviewerNumberReviewsContainer = styled.div`
   display: flex;
 `;
 

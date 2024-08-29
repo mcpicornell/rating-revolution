@@ -23,150 +23,145 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CompaniesDetailsPage = () => {
     const {id} = useParams();
-    console.log(id)
     const [company, setCompany] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [rating, setRating] = useState(0);
 
 
     useEffect(() => {
-        console.log('fuera')
         if (!company) {
-            console.log('dentro')
             setLoading(true);
             fetchCompanyById(id, setCompany)
         }
-        if (company && loading) {
+        if (loading && company) {
             setLoading(false);
         }
-    }, [id]);
+    }, [company, loading]);
+    if (company && !loading) {
+        const isLogged = isLoggedUserOrCompany("company");
 
-    const [rating, setRating] = useState(0);
-    console.log(company)
+        const handleRatingChange = (newRating) => {
+            setRating(newRating);
+        };
 
-    const isLogged = isLoggedUserOrCompany("company");
+        // const numberReviewsByRating = (number) => {
+        //     let numberReviews = 0;
+        //     for (let i = 0; i < company.reviews.length; i++) {
+        //         if (company.reviews[i].rating === number) {
+        //             numberReviews++;
+        //         }
+        //     }
+        //     return numberReviews;
+        // };
 
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
-
-    const numberReviewsByRating = (number) => {
-        let numberReviews = 0;
-        for (let i = 0; i < company.reviews.length; i++) {
-            if (company.reviews[i].rating === number) {
-                numberReviews++;
-            }
-        }
-        return numberReviews;
-    };
-
-    const contactNumberWithSpaces = addSpacesToPhoneNumber(
-        company.phone
-    );
-    const numberReviews = getNumberElementsInArray(company.reviews);
-    const reviewString = checkIfSingular(
-        getNumberElementsInArray(company.reviews)
-    );
-
-    let reviews = [];
-    let cardRating = [];
-
-    if (company && company.reviews) {
-        const reviewData = [...company.reviews];
-        const reviewDataOrdered = reviewData.sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        const numberReviews = getNumberElementsInArray(company.reviews);
+        const reviewString = checkIfSingular(
+            getNumberElementsInArray(company.reviews)
         );
-        reviewDataOrdered.forEach((reviewObj) => {
-            if (reviewObj) {
-                reviews.push(<Review key={reviewObj.id} reviewObj={reviewObj}/>);
+
+        let reviews = [];
+        let cardRating = [];
+
+        if (company.reviews) {
+            const reviewData = [...company.reviews];
+            // const reviewDataOrdered = reviewData.sort(
+            //     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+            // );
+            reviewData.forEach((review) => {
+                if (review) {
+                    reviews.push(<Review key={review.id} review={review}/>);
+                }
+            });
+            for (let i = 5; i > 0; i--) {
+                cardRating.push(
+                    <CardStarRating>
+                        <StarRating rating={i}/>
+                        <ReviewSpan>
+                            {company.total_reviews}{" "}
+                            {checkIfSingular(company.total_reviews)}
+                        </ReviewSpan>
+                    </CardStarRating>
+                );
             }
-        });
-        for (let i = 5; i > 0; i--) {
-            cardRating.push(
-                <CardStarRating>
-                    <StarRating rating={i}/>
-                    <ReviewSpan>
-                        {numberReviewsByRating(i)}{" "}
-                        {checkIfSingular(numberReviewsByRating(i))}
-                    </ReviewSpan>
-                </CardStarRating>
-            );
         }
-    }
 
 
-    return (
-        <PageContainer>
-            {loading && (
+        return (
+            <PageContainer>
+                <HeaderContainer>
+                    <Header>
+                        <Title>{company.name}</Title>
+                        <StarInfoContainer>
+                            <StarRating rating={company.rating}/>
+                            <ReviewSpan>
+                                {numberReviews} {reviewString}
+                            </ReviewSpan>
+                        </StarInfoContainer>
+                    </Header>
+                    <SubHeader>
+                        <SubHeaderElementContainer>
+                            <MdLocationOnStyled/>
+                            <SpanGrey>{company.address}</SpanGrey>
+                        </SubHeaderElementContainer>
+                        <SubHeaderElementContainer>
+                            <BsFillTelephoneFillStyled/>
+                            <SpanGrey>{addSpacesToPhoneNumber(company.phone)}</SpanGrey>
+                        </SubHeaderElementContainer>
+                        <SubHeaderElementContainer>
+                            <HiMailStyled/>
+                            <SpanGrey>{company.email}</SpanGrey>
+                        </SubHeaderElementContainer>
+                    </SubHeader>
+                </HeaderContainer>
+                <SliderContainer>
+                    <Slider company={company}/>
+                </SliderContainer>
+                <CardsContainer>
+                    <CardReviewContainer>{cardRating}</CardReviewContainer>
+                    <CardInfoContainer>
+                        <SpanCardTitle>{company.name}</SpanCardTitle>
+                        <SpanCardDescription>{company.description}</SpanCardDescription>
+                        <CardInfoContactContainer>
+                            <ContactContainer>
+                                <HiMail/>
+                                <SpanGreyStyled>{company.email}</SpanGreyStyled>
+                            </ContactContainer>
+                            <ContactContainer>
+                                <BsFillTelephoneFill/>
+                                <SpanGreyStyled>{addSpacesToPhoneNumber(company.phone)}</SpanGreyStyled>
+                            </ContactContainer>
+                            <ContactContainer>
+                                <MdLocationOn/>
+                                <SpanGreyStyled>{company.address}</SpanGreyStyled>
+                            </ContactContainer>
+                        </CardInfoContactContainer>
+                    </CardInfoContainer>
+                </CardsContainer>
+                <CommentsContainer>
+                    <MainCommentContainer isLogged={isLogged}>
+                        <CommentAndStarsContainer>
+                            <AiOutlineUserStyled/>
+                            <HoverStarRating onChangeRating={handleRatingChange}/>
+                        </CommentAndStarsContainer>
+                        <CommentInput placeholder="Write a review..."/>
+                        <ButtonComment>Comment</ButtonComment>
+                    </MainCommentContainer>
+                    {reviews}
+                </CommentsContainer>
+            </PageContainer>
+        );
+    } else {
+        return (
+            <PageContainer>
                 <div className="spinner-container">
                     <Spinner animation="border" variant="primary"/>
                 </div>
-            )}
-            {!loading && company && (
-                <>
-                    <HeaderContainer>
-                        <Header>
-                            <Title>{company.name}</Title>
-                            <StarInfoContainer>
-                                <StarRating rating={company.rating}/>
-                                <ReviewSpan>
-                                    {numberReviews} {reviewString}
-                                </ReviewSpan>
-                            </StarInfoContainer>
-                        </Header>
-                        <SubHeader>
-                            <SubHeaderElementContainer>
-                                <MdLocationOnStyled/>
-                                <SpanGrey>{company.address}</SpanGrey>
-                            </SubHeaderElementContainer>
-                            <SubHeaderElementContainer>
-                                <BsFillTelephoneFillStyled/>
-                                <SpanGrey>{contactNumberWithSpaces}</SpanGrey>
-                            </SubHeaderElementContainer>
-                            <SubHeaderElementContainer>
-                                <HiMailStyled/>
-                                <SpanGrey>{company.email}</SpanGrey>
-                            </SubHeaderElementContainer>
-                        </SubHeader>
-                    </HeaderContainer>
-                    <SliderContainer>
-                        <Slider company={company}/>
-                    </SliderContainer>
-                    <CardsContainer>
-                        <CardReviewContainer>{cardRating}</CardReviewContainer>
-                        <CardInfoContainer>
-                            <SpanCardTitle>{company.name}</SpanCardTitle>
-                            <SpanCardDescription>{company.description}</SpanCardDescription>
-                            <CardInfoContactContainer>
-                                <ContactContainer>
-                                    <HiMail/>
-                                    <SpanGreyStyled>{company.email}</SpanGreyStyled>
-                                </ContactContainer>
-                                <ContactContainer>
-                                    <BsFillTelephoneFill/>
-                                    <SpanGreyStyled>{contactNumberWithSpaces}</SpanGreyStyled>
-                                </ContactContainer>
-                                <ContactContainer>
-                                    <MdLocationOn/>
-                                    <SpanGreyStyled>{company.address}</SpanGreyStyled>
-                                </ContactContainer>
-                            </CardInfoContactContainer>
-                        </CardInfoContainer>
-                    </CardsContainer>
-                    <CommentsContainer>
-                        <MainCommentContainer isLogged={isLogged}>
-                            <CommentAndStarsContainer>
-                                <AiOutlineUserStyled/>
-                                <HoverStarRating onChangeRating={handleRatingChange}/>
-                            </CommentAndStarsContainer>
-                            <CommentInput placeholder="Write a review..."/>
-                            <ButtonComment>Comment</ButtonComment>
-                        </MainCommentContainer>
-                        {reviews}
-                    </CommentsContainer>
-                </>
-            )}
-        </PageContainer>
-    );
+            </PageContainer>
+
+        )
+    }
+
+
 };
 export default CompaniesDetailsPage;
 

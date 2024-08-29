@@ -11,11 +11,9 @@ export const fetchCompanies = async (setState) => {
 
 export const fetchCompanyById = async (id, setState) => {
     const body = null
-    console.log('hello there')
     const response = await request("GET", `/companies/${id}/`, body)
     if(response.ok){
         const data = await response.json()
-        console.log(data)
         setState(data)
     }
 }

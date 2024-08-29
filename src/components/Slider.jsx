@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const Slider = ({ companyObj }) => {
+const Slider = ({ company }) => {
   return (
     <CustomSwiper
       modules={[Navigation, Pagination]}
@@ -17,13 +17,13 @@ const Slider = ({ companyObj }) => {
       loop={true}
     >
       <SwiperSlide>
-        <ImgSlider src={companyObj.photos[0]} alt={companyObj.photos[0]} />
+        <ImgSlider src={company.photos[0]} alt={company.photos[0]} />
       </SwiperSlide>
       <SwiperSlide>
-        <ImgSlider src={companyObj.photos[1]} alt={companyObj.photos[1]} />
+        <ImgSlider src={company.photos[1]} alt={company.photos[1]} />
       </SwiperSlide>
       <SwiperSlide>
-        <ImgSlider src={companyObj.photos[2]} alt={companyObj.photos[2]} />
+        <ImgSlider src={company.photos[2]} alt={company.photos[2]} />
       </SwiperSlide>
     </CustomSwiper>
   );
